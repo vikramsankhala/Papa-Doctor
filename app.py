@@ -102,6 +102,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 VITALS_FILE = os.path.join(DATA_DIR, "vitals.json")
 MEDICATION_LOG = os.path.join(DATA_DIR, "medication_log.json")
 CHECKLIST_LOG = os.path.join(DATA_DIR, "checklist_log.json")
+HOME_VISITS_FILE = os.path.join(DATA_DIR, "home_visits.json")
 
 
 def load_json(path, default):
@@ -188,6 +189,7 @@ page = st.sidebar.radio(
     "Navigate",
     [
         "📊 Dashboard",
+        "🏠 Home Visits",
         "💊 Medication & Treatment",
         "🩺 Vitals & Monitoring",
         "📷 Image Analysis",
@@ -245,6 +247,89 @@ if page == "📊 Dashboard":
     
     st.markdown("---")
     st.info("Use the sidebar to navigate to specific modules: Medication, Vitals, Hygiene, Bathroom Care, Equipment, Disinfection, Technology, Surgery Care, and Daily Checklist.")
+
+# ==================== HOME VISITS ====================
+elif page == "🏠 Home Visits":
+    st.subheader("🏠 Home Visits")
+    st.markdown("## [Doctor at Door](https://doctoratdoor.co.in/) — Doctor Home Visit Log Book")
+
+    # Default visits if none stored
+    default_visits = [
+        {
+            "date": "2026-03-08",
+            "date_display": "8th March, 2026",
+            "arrived_on": "8/3/2026",
+            "ended_at": "1 PM",
+            "patient_name": "Mr. Gopalsingh Sankhala",
+            "location": "402, Florencia Apartments, Lane G, South Main Road. Before Archana Meadows, Koregaon Park, Pune, Maharashtra - 411001",
+            "examination": {
+                "age_sex": "90 years old male c̄ (with)...",
+                "temp": "N (Normal)",
+                "pulse": "88/min",
+                "rr": "16/min",
+                "bp": "140/80 mm Hg",
+                "spo2": "93%",
+            },
+            "wound_notes": "Stage 3/4 bed sores on both the buttocks. Wound cleaned with Normal Saline and Tincture of Iodine.",
+        }
+    ]
+
+    visits = load_json(HOME_VISITS_FILE, default_visits)
+
+    for i, v in enumerate(reversed(visits)):
+        with st.expander(f"**Visit — {v.get('date_display', v.get('date', ''))}** (Arrived: {v.get('arrived_on', '')}, Ended: {v.get('ended_at', '')})", expanded=(i == 0)):
+            st.markdown(f"**Date:** {v.get('arrived_on', '')} *(arrived on)*  \n**Ended at:** {v.get('ended_at', '')}")
+            st.markdown(f"**{v.get('date_display', v.get('date', ''))}**")
+            st.markdown(f"**Patient Name:** {v.get('patient_name', '')}")
+            st.markdown(f"**Location:** {v.get('location', '')}")
+            st.markdown("**Examination & Provisional Diagram:**")
+            ex = v.get("examination", {})
+            st.markdown(f"- {ex.get('age_sex', '')}")
+            st.markdown(f"- Temp: **{ex.get('temp', '')}**")
+            st.markdown(f"- Pulse: **{ex.get('pulse', '')}**")
+            st.markdown(f"- RR: **{ex.get('rr', '')}**")
+            st.markdown(f"- B.P.: **{ex.get('bp', '')}**")
+            st.markdown(f"- SpO₂: **{ex.get('spo2', '')}**")
+            st.markdown("**Wound Notes:**")
+            st.markdown(f"- {v.get('wound_notes', '')}")
+
+    with st.expander("➕ Add New Home Visit", expanded=False):
+        with st.form("home_visit_form"):
+            col1, col2 = st.columns(2)
+            with col1:
+                visit_date = st.date_input("Visit Date", value=date.today())
+                arrived = st.text_input("Arrived on (e.g. 8/3/2026)", value=f"{date.today().day}/{date.today().month}/{date.today().year}")
+                ended = st.text_input("Ended at (e.g. 1 PM)", "1 PM")
+            with col2:
+                patient = st.text_input("Patient Name", "Mr. Gopalsingh Sankhala")
+                location = st.text_area("Location", "402, Florencia Apartments, Lane G, South Main Road. Before Archana Meadows, Koregaon Park, Pune, Maharashtra - 411001")
+            st.markdown("**Examination**")
+            v1, v2, v3 = st.columns(3)
+            with v1:
+                temp = st.text_input("Temp", "N (Normal)")
+                pulse = st.text_input("Pulse", "88/min")
+            with v2:
+                rr = st.text_input("RR", "16/min")
+                bp = st.text_input("B.P.", "140/80 mm Hg")
+            with v3:
+                spo2 = st.text_input("SpO₂", "93%")
+                age_sex = st.text_input("Age/Sex", "90 years old male c̄ (with)...")
+            wound_notes = st.text_area("Wound Notes", "Stage 3/4 bed sores on both the buttocks. Wound cleaned with Normal Saline and Tincture of Iodine.")
+            if st.form_submit_button("Save Visit"):
+                visits = load_json(HOME_VISITS_FILE, default_visits)
+                visits.append({
+                    "date": visit_date.isoformat(),
+                    "date_display": f"{visit_date.day} {visit_date.strftime('%B')}, {visit_date.year}",
+                    "arrived_on": arrived,
+                    "ended_at": ended,
+                    "patient_name": patient,
+                    "location": location,
+                    "examination": {"age_sex": age_sex, "temp": temp, "pulse": pulse, "rr": rr, "bp": bp, "spo2": spo2},
+                    "wound_notes": wound_notes,
+                })
+                save_json(HOME_VISITS_FILE, visits)
+                st.success("Visit saved.")
+                st.rerun()
 
 # ==================== MEDICATION & TREATMENT ====================
 elif page == "💊 Medication & Treatment":
