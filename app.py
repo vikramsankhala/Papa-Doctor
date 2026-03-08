@@ -380,14 +380,14 @@ if page == "📊 Dashboard":
         st.markdown("### ⚠️ Re-order alerts")
         st.warning("Low stock (<40%): " + ", ".join(low_stock))
 
-    todo_today = load_json(TODO_FILE, {}).get(today.isoformat(), [])
+    todo_today = load_json(TODO_FILE, {}).get(today, [])
     todo_done = sum(1 for t in todo_today if t.get("status") == "completed")
     if todo_today:
         st.markdown("### 📋 Today's ToDo")
         st.caption(f"{todo_done} of {len(todo_today)} completed")
 
     st.markdown("### Today's meals")
-    meals = get_meals_for_date(today)
+    meals = get_meals_for_date(date.today())
     if meals:
         st.markdown(f"**Breakfast:** {meals.get('breakfast', '—')} | **Lunch:** {meals.get('lunch', '—')} | **Dinner:** {meals.get('dinner', '—')}")
     
