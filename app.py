@@ -11,6 +11,9 @@ import json
 import os
 import base64
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # Page config
 st.set_page_config(
     page_title="CareAssist — Gopal Singh Sankhala",
