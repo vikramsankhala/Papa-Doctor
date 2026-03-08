@@ -103,6 +103,10 @@ VITALS_FILE = os.path.join(DATA_DIR, "vitals.json")
 MEDICATION_LOG = os.path.join(DATA_DIR, "medication_log.json")
 CHECKLIST_LOG = os.path.join(DATA_DIR, "checklist_log.json")
 HOME_VISITS_FILE = os.path.join(DATA_DIR, "home_visits.json")
+TASKS_SCHEDULE_FILE = os.path.join(DATA_DIR, "tasks_schedule.json")
+NUTRITION_FILE = os.path.join(DATA_DIR, "nutrition_weekly.json")
+INVENTORY_FILE = os.path.join(DATA_DIR, "inventory.json")
+TODO_FILE = os.path.join(DATA_DIR, "todo.json")
 
 
 def load_json(path, default):
@@ -118,6 +122,73 @@ def load_json(path, default):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+DEFAULT_RECOMMENDED_TASKS = [
+    "Morning vitals (P, BP, SpO₂)",
+    "Medications as per schedule",
+    "Nebuliser (Asthalin + Budecort)",
+    "Oral care (AM)",
+    "Breakfast",
+    "Bath / sponge bath",
+    "Linen check / change if needed",
+    "Room ventilation",
+    "High-touch surface disinfection",
+    "Bathroom disinfection",
+    "Lunch",
+    "Diaper changes as needed",
+    "Oral care (PM)",
+    "Dinner",
+    "Evening vitals",
+    "Medication log review",
+]
+
+DEFAULT_NUTRITION = {
+    "Monday": {"breakfast": "Oats, milk, banana", "lunch": "Dal, rice, vegetables, roti", "dinner": "Soup, chapati, sabzi", "snacks": "Fruit, PROTEINEX"},
+    "Tuesday": {"breakfast": "Idli, sambar, chutney", "lunch": "Rice, fish/egg curry, vegetables", "dinner": "Khichdi, yogurt", "snacks": "Biscuits, milk"},
+    "Wednesday": {"breakfast": "Poha, tea", "lunch": "Roti, paneer, dal", "dinner": "Rice, dal, vegetable curry", "snacks": "Fruit, PROTEINEX"},
+    "Thursday": {"breakfast": "Upma, coconut chutney", "lunch": "Rice, sambar, papad", "dinner": "Chapati, bhindi, dal", "snacks": "Nuts, banana"},
+    "Friday": {"breakfast": "Dosa, sambar", "lunch": "Biryani/pulao, raita", "dinner": "Soup, roti, mixed vegetables", "snacks": "Fruit, PROTEINEX"},
+    "Saturday": {"breakfast": "Paratha, yogurt", "lunch": "Dal, rice, aloo sabzi", "dinner": "Rice, fish curry, salad", "snacks": "Milk, biscuits"},
+    "Sunday": {"breakfast": "Pancakes, honey, milk", "lunch": "Roti, chole, rice", "dinner": "Khichdi, papad, pickle", "snacks": "Fruit, PROTEINEX"},
+}
+
+
+def get_meals_for_date(d: date) -> dict:
+    """Get meal schedule for a date from weekly nutrition chart."""
+    nutrition = load_json(NUTRITION_FILE, DEFAULT_NUTRITION)
+    day_name = d.strftime("%A")
+    return nutrition.get(day_name, {})
+
+
+def get_tasks_for_date(d: date) -> list:
+    """Get task names for a date. Merges recommended + date-specific scheduled."""
+    schedule = load_json(TASKS_SCHEDULE_FILE, {})
+    date_str = d.isoformat()
+    scheduled = schedule.get(date_str, [])
+    base = DEFAULT_RECOMMENDED_TASKS.copy()
+    for t in scheduled:
+        if isinstance(t, dict):
+            name = t.get("name", t.get("task", ""))
+            if name and name not in base:
+                base.append(name)
+        else:
+            if t not in base:
+                base.append(t)
+    return base
+
+
+def get_checklist_for_date(d: date) -> dict:
+    """Get checklist (tasks with completion) for a date."""
+    checklist_data = load_json(CHECKLIST_LOG, [])
+    date_str = d.isoformat()
+    day_data = next((c for c in checklist_data if c.get("date") == date_str), {"date": date_str, "tasks": []})
+    task_names = get_tasks_for_date(d)
+    completed_map = {t["name"]: t.get("completed", False) for t in day_data.get("tasks", [])}
+    tasks = [{"name": n, "completed": completed_map.get(n, False)} for n in task_names]
+    if not day_data.get("tasks"):
+        day_data["tasks"] = tasks
+    return day_data
 
 
 def analyze_image_with_llm(image_bytes: bytes, prompt: str, provider: str, api_key: str, mime: str = "image/jpeg") -> str:
@@ -180,6 +251,55 @@ def analyze_image_with_llm(image_bytes: bytes, prompt: str, provider: str, api_k
     return "Unsupported provider."
 
 
+def get_assistant_context() -> str:
+    """Build context about the CareAssist app and patient for the AI assistant."""
+    vitals = load_json(VITALS_FILE, [])
+    med_log = load_json(MEDICATION_LOG, [])
+    visits = load_json(HOME_VISITS_FILE, [])
+    latest_vitals = vitals[-1] if vitals else {}
+    return f"""You are the AI Assistant for CareAssist, a virtual caretaking application for home care of Gopal Singh Sankhala, managed by Vikram Singh Sankhala with a medical attendant.
+
+**Patient:** Mr. Gopal Singh Sankhala, 90 years old male
+**Location:** 402, Florencia Apartments, Lane G, South Main Road, Koregaon Park, Pune, Maharashtra - 411001
+**Doctor at Door:** https://doctoratdoor.co.in/ (home visit service)
+
+**Current Prescriptions:**
+- Nebuliser: Asthalin respules + Budecort respules
+- Syp. Ascoril 1.5 × 10ml
+- 10ml Tonul, Mucinac 600mg
+- EMODEL DS lotion (apply locally)
+- PROTEINEX Powder: 2 scoops/day
+
+**Supplies:** Masks, hand gloves, Diapers Size 7, carry bags, dustbin for diaper disposal, camphor, extra virgin cold pressed coconut oil
+
+**Care Context:**
+- Stage 3/4 bed sores on both buttocks; wound cleaned with Normal Saline and Tincture of Iodine
+- Respiratory: reduced air entry, bilateral crepits
+- Latest vitals (if recorded): Pulse {latest_vitals.get('pulse', '—')}/min, BP {latest_vitals.get('bp_sys', '—')}/{latest_vitals.get('bp_dia', '—')} mmHg, SpO₂ {latest_vitals.get('spo2', '—')}%
+
+**App Modules:** Dashboard, Home Visits, Medication & Treatment, Vitals & Monitoring, Image Analysis, Hygiene & Cleanliness, Bathroom Care, Equipment & Supplies, Disinfection & Pest Control, Technology Hygiene, General Surgery Care, Daily Checklist
+
+**Your role:** Answer questions about caretaking, medications, hygiene, wound care, protocols, equipment, bathroom care, disinfection, pest control, or how to use this app. Be concise, practical, and supportive. Do not diagnose; recommend consulting a doctor for medical decisions. If asked about app features, explain how to use them."""
+
+
+def chat_with_assistant(messages: list, api_key: str) -> str:
+    """Send chat messages to Anthropic Claude and return response."""
+    if not api_key:
+        return "Please set ANTHROPIC_API_KEY in .env or in the Image Analysis API settings."
+    try:
+        import anthropic
+        client = anthropic.Anthropic(api_key=api_key)
+        response = client.messages.create(
+            model="claude-3-5-sonnet-20241022",
+            max_tokens=1024,
+            system=get_assistant_context(),
+            messages=[{"role": m["role"], "content": m["content"]} for m in messages],
+        )
+        return response.content[0].text if response.content else ""
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
 # Sidebar navigation
 st.sidebar.markdown("## 🏥 CareAssist")
 st.sidebar.markdown("**Patient:** Gopal Singh Sankhala  \n**Caregiver:** Vikram Singh Sankhala")
@@ -189,6 +309,7 @@ page = st.sidebar.radio(
     "Navigate",
     [
         "📊 Dashboard",
+        "🤖 AI Assistant",
         "🏠 Home Visits",
         "💊 Medication & Treatment",
         "🩺 Vitals & Monitoring",
@@ -199,7 +320,10 @@ page = st.sidebar.radio(
         "🦠 Disinfection & Pest Control",
         "📱 Technology Hygiene",
         "🏥 General Surgery Care",
-        "✅ Daily Checklist",
+        "📅 Daily Tasks & Schedule",
+        "📋 Daily ToDo",
+        "🍽️ Nutrition Chart",
+        "📦 Inventory",
     ],
     label_visibility="collapsed"
 )
@@ -244,9 +368,64 @@ if page == "📊 Dashboard":
         v2.metric("BP", f"{latest.get('bp_sys', '—')}/{latest.get('bp_dia', '—')} mmHg", "")
         v3.metric("SpO₂", f"{latest.get('spo2', '—')}%", "")
         v4.metric("Time", latest.get("time", "—"), "")
+
+    inv = load_json(INVENTORY_FILE, {"medicines": [], "supplements": [], "food": []})
+    low_stock = []
+    for cat, items in inv.items():
+        for item in items:
+            cur, mon = float(item.get("current_stock", 0)), float(item.get("monthly_requirement", 1))
+            if mon > 0 and (cur / mon) < 0.4:
+                low_stock.append(item.get("name", "?"))
+    if low_stock:
+        st.markdown("### ⚠️ Re-order alerts")
+        st.warning("Low stock (<40%): " + ", ".join(low_stock))
+
+    todo_today = load_json(TODO_FILE, {}).get(today.isoformat(), [])
+    todo_done = sum(1 for t in todo_today if t.get("status") == "completed")
+    if todo_today:
+        st.markdown("### 📋 Today's ToDo")
+        st.caption(f"{todo_done} of {len(todo_today)} completed")
+
+    st.markdown("### Today's meals")
+    meals = get_meals_for_date(today)
+    if meals:
+        st.markdown(f"**Breakfast:** {meals.get('breakfast', '—')} | **Lunch:** {meals.get('lunch', '—')} | **Dinner:** {meals.get('dinner', '—')}")
     
     st.markdown("---")
-    st.info("Use the sidebar to navigate to specific modules: Medication, Vitals, Hygiene, Bathroom Care, Equipment, Disinfection, Technology, Surgery Care, and Daily Checklist.")
+    st.info("Use the sidebar to navigate to specific modules: Daily Tasks & Schedule, Nutrition Chart, Inventory, and more.")
+
+# ==================== AI ASSISTANT ====================
+elif page == "🤖 AI Assistant":
+    st.subheader("🤖 AI Assistant")
+    st.markdown("Ask anything about caretaking, medications, protocols, wound care, or how to use this app.")
+
+    if "chat_messages" not in st.session_state:
+        st.session_state.chat_messages = []
+
+    for msg in st.session_state.chat_messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        st.warning("Set ANTHROPIC_API_KEY in .env to use the AI Assistant.")
+
+    if prompt := st.chat_input("Ask a question about care, medications, or this app..."):
+        st.session_state.chat_messages.append({"role": "user", "content": prompt})
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                response = chat_with_assistant(st.session_state.chat_messages, api_key)
+            st.markdown(response)
+        st.session_state.chat_messages.append({"role": "assistant", "content": response})
+
+    if st.session_state.chat_messages:
+        st.markdown("---")
+        if st.button("Clear chat"):
+            st.session_state.chat_messages = []
+            st.rerun()
 
 # ==================== HOME VISITS ====================
 elif page == "🏠 Home Visits":
@@ -658,51 +837,220 @@ elif page == "🏥 General Surgery Care":
     </div>
     """, unsafe_allow_html=True)
 
-# ==================== DAILY CHECKLIST ====================
-elif page == "✅ Daily Checklist":
-    st.subheader("✅ Daily Care Checklist")
-    
-    default_tasks = [
-        ("Morning vitals (P, BP, SpO₂)", False),
-        ("Medications as per schedule", False),
-        ("Nebuliser (Asthalin + Budecort)", False),
-        ("Oral care (AM)", False),
-        ("Bath / sponge bath", False),
-        ("Linen check / change if needed", False),
-        ("Room ventilation", False),
-        ("High-touch surface disinfection", False),
-        ("Bathroom disinfection", False),
-        ("Diaper changes as needed", False),
-        ("Oral care (PM)", False),
-        ("Evening vitals", False),
-        ("Medication log review", False),
-    ]
-    
-    today = date.today().isoformat()
-    checklist_data = load_json(CHECKLIST_LOG, [])
-    today_data = next((c for c in checklist_data if c.get("date") == today), {"date": today, "tasks": []})
-    
-    if not today_data.get("tasks"):
-        today_data["tasks"] = [{"name": n, "completed": d} for n, d in default_tasks]
-    
-    tasks = today_data["tasks"]
-    updated = False
-    
-    for i, t in enumerate(tasks):
-        new_val = st.checkbox(t["name"], value=t.get("completed", False), key=f"task_{i}")
-        if new_val != t.get("completed"):
-            tasks[i]["completed"] = new_val
-            updated = True
-    
-    if updated or st.button("Save Checklist"):
-        other = [c for c in checklist_data if c.get("date") != today]
-        other.append(today_data)
-        save_json(CHECKLIST_LOG, other)
-        st.success("Checklist saved.")
-    
-    completed = sum(1 for t in tasks if t.get("completed"))
-    st.progress(completed / len(tasks) if tasks else 0)
-    st.caption(f"{completed} of {len(tasks)} tasks completed today")
+# ==================== DAILY TASKS & SCHEDULE ====================
+elif page == "📅 Daily Tasks & Schedule":
+    st.subheader("📅 Daily Tasks & Schedule")
+    today = date.today()
+
+    col_cal, col_tasks = st.columns([1, 2])
+    with col_cal:
+        selected_date = st.date_input("Select date", value=today, key="task_calendar")
+        st.markdown("---")
+        st.markdown("### 🍽️ Meal schedule")
+        meals = get_meals_for_date(selected_date)
+        if meals:
+            st.markdown(f"**Breakfast:** {meals.get('breakfast', '—')}")
+            st.markdown(f"**Lunch:** {meals.get('lunch', '—')}")
+            st.markdown(f"**Dinner:** {meals.get('dinner', '—')}")
+            st.markdown(f"**Snacks:** {meals.get('snacks', '—')}")
+        else:
+            st.info("Edit Nutrition Chart to set meals for this day.")
+
+        with st.expander("➕ Schedule a task for this day"):
+            new_task = st.text_input("Task name", placeholder="e.g. Doctor visit")
+            if st.button("Add to schedule"):
+                if new_task.strip():
+                    schedule = load_json(TASKS_SCHEDULE_FILE, {})
+                    date_str = selected_date.isoformat()
+                    day_tasks = schedule.get(date_str, [])
+                    day_tasks.append({"name": new_task.strip(), "added": datetime.now().isoformat()})
+                    schedule[date_str] = day_tasks
+                    save_json(TASKS_SCHEDULE_FILE, schedule)
+                    st.success("Task scheduled.")
+                    st.rerun()
+
+    with col_tasks:
+        st.markdown(f"### Tasks for {selected_date.strftime('%A, %d %B %Y')}")
+        day_data = get_checklist_for_date(selected_date)
+        tasks = day_data["tasks"]
+        updated = False
+        for i, t in enumerate(tasks):
+            new_val = st.checkbox(t["name"], value=t.get("completed", False), key=f"task_{selected_date}_{i}")
+            if new_val != t.get("completed"):
+                tasks[i]["completed"] = new_val
+                updated = True
+
+        if updated or st.button("Save checklist", key="save_tasks"):
+            checklist_data = load_json(CHECKLIST_LOG, [])
+            day_data["tasks"] = tasks
+            other = [c for c in checklist_data if c.get("date") != selected_date.isoformat()]
+            other.append(day_data)
+            save_json(CHECKLIST_LOG, other)
+            st.success("Checklist saved.")
+            st.rerun()
+
+        completed = sum(1 for t in tasks if t.get("completed"))
+        st.progress(completed / len(tasks) if tasks else 0)
+        st.caption(f"{completed} of {len(tasks)} tasks completed")
+
+# ==================== DAILY TODO ====================
+elif page == "📋 Daily ToDo":
+    st.subheader("📋 Daily ToDo Checklist")
+    st.markdown("Add tasks with notes, track status, and set reminders. *Reminders are shown when you open this page.*")
+
+    today = date.today()
+    todo_data = load_json(TODO_FILE, {})
+    selected_date = st.date_input("Date", value=today, key="todo_date")
+    date_str = selected_date.isoformat()
+    items = todo_data.get(date_str, [])
+
+    now = datetime.now()
+    reminders_today = [i for i in items if i.get("reminder") and i.get("status") != "completed"]
+    reminders_today.sort(key=lambda x: x.get("reminder", ""))
+
+    if reminders_today:
+        st.markdown("### ⏰ Reminders")
+        for r in reminders_today:
+            st.info(f"**{r.get('reminder', '')}** — {r.get('title', '')}")
+        st.markdown("---")
+
+    st.markdown("### ToDo list")
+    if not items:
+        st.caption("No items yet. Add one below.")
+    else:
+        for i, item in enumerate(items):
+            with st.container():
+                col_chk, col_content, col_status, col_del = st.columns([0.4, 3, 1.5, 0.4])
+                with col_chk:
+                    is_done = item.get("status") == "completed"
+                    new_done = st.checkbox("", value=is_done, key=f"todo_done_{date_str}_{i}")
+                with col_content:
+                    title = item.get("title", "")
+                    notes = item.get("notes", "")
+                    reminder = item.get("reminder", "")
+                    st.markdown(f"**{title}**" + (f" — *Reminder: {reminder}*" if reminder else ""))
+                    if notes:
+                        st.caption(notes)
+                with col_status:
+                    status = st.selectbox(
+                        "Status",
+                        ["pending", "in_progress", "completed"],
+                        index=["pending", "in_progress", "completed"].index(item.get("status", "pending")),
+                        key=f"todo_status_{date_str}_{i}",
+                        format_func=lambda x: {"pending": "Pending", "in_progress": "In Progress", "completed": "Completed"}[x],
+                    )
+                with col_del:
+                    if st.button("🗑️", key=f"todo_del_{date_str}_{i}", help="Delete"):
+                        items.pop(i)
+                        todo_data[date_str] = items
+                        save_json(TODO_FILE, todo_data)
+                        st.rerun()
+                new_status = "completed" if new_done else (status if status != "completed" else "pending")
+                if new_status != item.get("status"):
+                    item["status"] = new_status
+                    item["updated"] = now.isoformat()
+                    todo_data[date_str] = items
+                    save_json(TODO_FILE, todo_data)
+                    st.rerun()
+
+    st.markdown("---")
+    with st.expander("➕ Add ToDo"):
+        with st.form("add_todo"):
+            t_title = st.text_input("Title", placeholder="e.g. Call pharmacy")
+            t_notes = st.text_area("Notes", placeholder="Optional details...")
+            t_reminder = st.text_input("Reminder time (e.g. 09:00, 2:30 PM)", placeholder="09:00")
+            if st.form_submit_button("Add"):
+                if t_title.strip():
+                    items.append({
+                        "title": t_title.strip(),
+                        "notes": t_notes.strip(),
+                        "status": "pending",
+                        "reminder": t_reminder.strip() or None,
+                        "created": now.isoformat(),
+                    })
+                    todo_data[date_str] = items
+                    save_json(TODO_FILE, todo_data)
+                    st.success("ToDo added.")
+                    st.rerun()
+                else:
+                    st.error("Enter a title.")
+
+    completed = sum(1 for i in items if i.get("status") == "completed")
+    st.progress(completed / len(items) if items else 0)
+    st.caption(f"{completed} of {len(items)} completed")
+
+# ==================== NUTRITION CHART ====================
+elif page == "🍽️ Nutrition Chart":
+    st.subheader("🍽️ Weekly Nutrition Chart")
+    st.markdown("Set meal schedules for each day of the week. Shown on Daily Tasks & Schedule and Dashboard.")
+
+    nutrition = load_json(NUTRITION_FILE, DEFAULT_NUTRITION)
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+    for day in days:
+        with st.expander(f"**{day}**", expanded=False):
+            day_meals = nutrition.get(day, {})
+            with st.form(f"nutrition_{day}"):
+                b = st.text_input("Breakfast", value=day_meals.get("breakfast", ""), key=f"b_{day}")
+                l = st.text_input("Lunch", value=day_meals.get("lunch", ""), key=f"l_{day}")
+                d = st.text_input("Dinner", value=day_meals.get("dinner", ""), key=f"d_{day}")
+                s = st.text_input("Snacks", value=day_meals.get("snacks", ""), key=f"s_{day}")
+                if st.form_submit_button("Save"):
+                    nutrition[day] = {"breakfast": b, "lunch": l, "dinner": d, "snacks": s}
+                    save_json(NUTRITION_FILE, nutrition)
+                    st.success(f"{day} saved.")
+                    st.rerun()
+
+# ==================== INVENTORY ====================
+elif page == "📦 Inventory":
+    st.subheader("📦 Medicines, Supplements & Food Inventory")
+    st.markdown("Track stock levels. **Re-order alert** when stock falls below 40% of monthly requirement.")
+
+    REORDER_THRESHOLD = 0.4
+    inventory = load_json(INVENTORY_FILE, {"medicines": [], "supplements": [], "food": []})
+
+    for category, label in [("medicines", "💊 Medicines"), ("supplements", "💊 Supplements"), ("food", "🍎 Food")]:
+        st.markdown(f"### {label}")
+        items = inventory.get(category, [])
+        alerts = []
+        for i, item in enumerate(items):
+            name = item.get("name", "?")
+            current = float(item.get("current_stock", 0))
+            monthly = float(item.get("monthly_requirement", 1))
+            unit = item.get("unit", "units")
+            pct = (current / monthly * 100) if monthly > 0 else 0
+            if pct < 40:
+                alerts.append(f"**{name}**: {current} {unit} ({pct:.0f}% of monthly) — re-order needed")
+
+        if alerts:
+            for a in alerts:
+                st.error(a)
+
+        df = pd.DataFrame(items) if items else pd.DataFrame(columns=["name", "current_stock", "monthly_requirement", "unit"])
+        if not df.empty:
+            st.dataframe(df[["name", "current_stock", "monthly_requirement", "unit"]], use_container_width=True, hide_index=True)
+
+        with st.expander(f"Add/Update {category}"):
+            with st.form(f"inv_{category}"):
+                in_name = st.text_input("Item name", key=f"inv_name_{category}")
+                in_current = st.number_input("Current stock", min_value=0.0, value=0.0, key=f"inv_cur_{category}")
+                in_monthly = st.number_input("Monthly requirement", min_value=0.1, value=1.0, key=f"inv_mon_{category}")
+                in_unit = st.text_input("Unit (e.g. strips, bottles, kg)", value="units", key=f"inv_unit_{category}")
+                if st.form_submit_button("Add/Update"):
+                    if not in_name.strip():
+                        st.error("Enter item name.")
+                    else:
+                        existing = next((x for x in items if x.get("name", "").lower() == in_name.strip().lower()), None)
+                        if existing:
+                            existing["current_stock"] = in_current
+                            existing["monthly_requirement"] = in_monthly
+                            existing["unit"] = in_unit
+                        else:
+                            items.append({"name": in_name.strip(), "current_stock": in_current, "monthly_requirement": in_monthly, "unit": in_unit})
+                        inventory[category] = items
+                        save_json(INVENTORY_FILE, inventory)
+                        st.success("Updated.")
+                        st.rerun()
 
 # Footer
 st.sidebar.markdown("---")
