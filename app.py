@@ -317,12 +317,14 @@ page = st.sidebar.radio(
         "🧹 Hygiene & Cleanliness",
         "🚿 Bathroom Care",
         "🔧 Equipment & Supplies",
+        "🛒 Care Equipment Guide",
         "🦠 Disinfection & Pest Control",
         "📱 Technology Hygiene",
         "🏥 General Surgery Care",
         "📅 Daily Tasks & Schedule",
         "📋 Daily ToDo",
         "🍽️ Nutrition Chart",
+        "🥗 Nutrition & Supplements",
         "🍳 English Breakfast Guide",
         "📦 Inventory",
     ],
@@ -757,6 +759,151 @@ elif page == "🔧 Equipment & Supplies":
     </div>
     """, unsafe_allow_html=True)
 
+# ==================== CARE EQUIPMENT GUIDE ====================
+elif page == "🛒 Care Equipment Guide":
+    st.subheader("🛒 Care Equipment Guide")
+    st.markdown("Recommended equipment for home care, with detailed use instructions and purchase links.")
+
+    st.markdown("---")
+    st.markdown("## 1. Posey Transfer Belt — Safe Patient Transfers & Walking Support")
+
+    st.markdown("""
+    [**TIDI Posey Transfer Belt (6537Q)** — Extra-Wide Soft Nylon](https://www.amazon.in/Posey-Extra-Wide-Therapists-Caregivers-6537Q/dp/B00LWVQ3WA)
+
+    A medical-grade transfer and gait belt designed for nurses, therapists, and home care caregivers. Essential for safe patient transfers and fall prevention.
+    """)
+
+    with st.expander("**What it is & when to use**", expanded=True):
+        st.markdown("""
+        The Posey Transfer Belt is a **waist belt with multiple handles** that caregivers grip to safely assist patients during:
+        - **Transfers:** Bed ↔ wheelchair, wheelchair ↔ toilet, chair ↔ standing
+        - **Walking (gait training):** Supporting balance and stability
+        - **Standing:** Helping patient rise from seated position
+
+        **Ideal for:** Elderly patients, fall-risk individuals, post-surgery recovery, mobility-limited patients, home care settings.
+        """)
+
+    with st.expander("**Key features**"):
+        feat_df = pd.DataFrame({
+            "Feature": [
+                "Quick-release buckle",
+                "6 grab handles",
+                "Extra-wide 4\" nylon webbing",
+                "Rear support band",
+                "Waist size range",
+                "Machine washable",
+            ],
+            "Benefit": [
+                "Facilitates full transfers; easy to put on/remove",
+                "Multiple grasping points from any side or angle",
+                "Strong, supportive; reduces caregiver back strain",
+                "Additional stability and fall prevention",
+                "28\" to 52\" (71–132 cm) — adjustable",
+                "Hygienic; easy to clean",
+            ],
+        })
+        st.dataframe(feat_df, use_container_width=True, hide_index=True)
+
+    with st.expander("**How to use — step-by-step**"):
+        st.markdown("""
+        1. **Position the patient** seated on bed, chair, or wheelchair.
+        2. **Wrap the belt** around the patient's waist, over clothing. Ensure it sits at waist level, not on ribs or hips.
+        3. **Secure the buckle** — snap closed. Belt should be snug but allow 2 fingers between belt and body.
+        4. **For standing/transfer:** Stand facing the patient. Grasp 2 handles (one on each side) or use rear handles. Use your legs, not your back, to lift.
+        5. **For walking:** Walk beside or behind, holding handles. Match the patient's pace.
+        6. **Release:** Use quick-release buckle when transfer is complete.
+        """)
+
+    with st.expander("**Care & maintenance**"):
+        st.markdown("""
+        - **Clean:** Machine wash in cold water; air dry. Do not bleach.
+        - **Inspect:** Check stitching and buckle before each use.
+        - **Storage:** Keep dry; avoid direct sunlight.
+        """)
+
+    st.markdown("[🛒 View on Amazon.in](https://www.amazon.in/Posey-Extra-Wide-Therapists-Caregivers-6537Q/dp/B00LWVQ3WA)")
+
+    st.markdown("---")
+    st.markdown("## 2. Hero Eco Med Reclining Commode Wheelchair MHL-1006")
+
+    st.markdown("""
+    [**Hero Eco Med Reclining Commode Wheelchair MHL-1006**](https://www.amazon.in/dp/B0BCQMP2G9)
+
+    A foldable wheelchair with 180° reclining, built-in commode, and headrest. Designed for patients who need mobility support and toileting assistance at home.
+    """)
+
+    with st.expander("**What it is & when to use**", expanded=True):
+        st.markdown("""
+        A **multi-function wheelchair** that combines:
+        - **Wheelchair** — for mobility indoors and short distances
+        - **Recliner** — 180° recline to supine (bed-like) position
+        - **Commode** — U-cut seat with removable, cleanable pan for toileting
+
+        **Ideal for:** Bed-bound or limited-mobility patients, those who need toileting without bed transfer, post-surgery, elderly care at home.
+        """)
+
+    with st.expander("**Key specifications**"):
+        spec_df = pd.DataFrame({
+            "Specification": [
+                "Reclining",
+                "Weight capacity",
+                "Commode",
+                "Wheels",
+                "Foldable",
+                "Dimensions",
+                "Weight",
+            ],
+            "Details": [
+                "180° recline — supine position, optimized center of gravity",
+                "100 kg",
+                "U-cut seat, microbe-resistant pan with lid, removable & cleanable",
+                "24\" rear spoke wheels; 8\" solid PP front wheels",
+                "Yes — portable, doubles as normal wheelchair",
+                "114D × 65.5W × 118H cm",
+                "24.9 kg",
+            ],
+        })
+        st.dataframe(spec_df, use_container_width=True, hide_index=True)
+
+    with st.expander("**Key features**"):
+        st.markdown("""
+        - **Removable headrest** with neck support
+        - **Calf support** and detachable footrests
+        - **Antibacterial upholstery** — strong, flexible, easy to clean
+        - **Chrome-plated** frame — durable, ergonomic design
+        """)
+
+    with st.expander("**How to use — step-by-step**"):
+        st.markdown("""
+        **As wheelchair:**
+        1. Unfold and lock in place. Ensure brakes are released for movement.
+        2. Assist patient into seat. Adjust footrests.
+        3. Use rear handles to push. Apply brakes when stationary.
+
+        **As commode:**
+        1. Position over toilet or place pan beneath U-cut seat.
+        2. Ensure pan is securely in place with lid removed.
+        3. After use, remove pan, empty, clean with disinfectant. Replace lid.
+
+        **As recliner:**
+        1. Use recline lever/mechanism to tilt back.
+        2. Support patient's head with headrest. Adjust calf support.
+        3. Return to upright slowly when done.
+        """)
+
+    with st.expander("**Care & maintenance**"):
+        st.markdown("""
+        - **Commode pan:** Empty promptly. Clean with disinfectant (e.g. bleach 0.1%). Rinse and dry.
+        - **Upholstery:** Wipe with damp cloth and mild detergent. Avoid harsh chemicals.
+        - **Wheels:** Check for debris. Lubricate axles if needed.
+        - **Frame:** Wipe down regularly. Check all locks and mechanisms.
+        """)
+
+    st.markdown("[🛒 View on Amazon.in](https://www.amazon.in/dp/B0BCQMP2G9)")
+
+    st.markdown("---")
+    st.caption("*Product details and pricing may change. Verify on Amazon before purchase.*")
+
 # ==================== DISINFECTION & PEST CONTROL ====================
 elif page == "🦠 Disinfection & Pest Control":
     st.subheader("🦠 Disinfection & Pest Control")
@@ -1001,6 +1148,220 @@ elif page == "🍽️ Nutrition Chart":
                     save_json(NUTRITION_FILE, nutrition)
                     st.success(f"{day} saved.")
                     st.rerun()
+
+# ==================== NUTRITION & SUPPLEMENTS ====================
+elif page == "🥗 Nutrition & Supplements":
+    st.subheader("🥗 Nutritional Requirements & Natural Supplements")
+    st.markdown("Guidance for elderly care. *Always consult a doctor or dietitian before adding supplements.*")
+
+    st.markdown("---")
+    st.markdown("### 📋 Daily Nutritional Requirements (Elderly 70+ years)")
+
+    req_df = pd.DataFrame({
+        "Nutrient": [
+            "Protein", "Calcium", "Vitamin D", "Vitamin B12", "Iron", "Zinc",
+            "Vitamin C", "Omega-3", "Fibre", "Fluids",
+        ],
+        "Daily need (approx.)": [
+            "1.0–1.2 g/kg body weight", "1200 mg", "800–1000 IU", "2.4 mcg", "8 mg (men)", "11 mg (men)",
+            "75–90 mg", "1.1–1.6 g", "21–30 g", "1.5–2 L",
+        ],
+        "Role": [
+            "Muscle, wound healing, immunity", "Bones, teeth", "Calcium absorption, bones", "Nerves, blood", "Oxygen, energy", "Immunity, wound healing",
+            "Immunity, wound healing", "Heart, brain, anti-inflammatory", "Digestion, gut health", "Hydration, kidney function",
+        ],
+    })
+    st.dataframe(req_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 🥛 Protein — Priority for Wound Healing & Muscle")
+
+    st.markdown("""
+    **Why it matters:** Protein is essential for wound healing (e.g. bed sores), maintaining muscle mass, and immunity. Elderly often need more than younger adults.
+
+    **Food sources:** Dal, paneer, eggs, fish, chicken, milk, yogurt, nuts, PROTEINEX (as prescribed).
+
+    **Current prescription:** PROTEINEX Powder — 2 scoops/day.
+    """)
+
+    st.markdown("---")
+    st.markdown("### 💊 Natural Supplements — Common for Elderly Care")
+
+    with st.expander("**Vitamin D**"):
+        st.markdown("""
+        - **Why:** Poor absorption with age; limited sun exposure; supports bones, immunity, mood.
+        - **Sources:** Sunlight (15–20 min), fatty fish, fortified milk, eggs.
+        - **Supplement:** Often 600–1000 IU/day; doctor may prescribe higher if deficient.
+        """)
+
+    with st.expander("**Vitamin B12**"):
+        st.markdown("""
+        - **Why:** Absorption decreases with age; supports nerves and red blood cells.
+        - **Sources:** Fish, eggs, dairy, fortified cereals.
+        - **Supplement:** Sublingual or injection if deficient (common in elderly).
+        """)
+
+    with st.expander("**Calcium**"):
+        st.markdown("""
+        - **Why:** Bone health; often low in elderly.
+        - **Sources:** Milk, yogurt, paneer, ragi, leafy greens, fish with bones.
+        - **Note:** Take with Vitamin D for absorption.
+        """)
+
+    with st.expander("**Omega-3 (fish oil)**"):
+        st.markdown("""
+        - **Why:** Heart, brain, anti-inflammatory.
+        - **Sources:** Fatty fish (salmon, mackerel), walnuts, flaxseed, chia.
+        - **Supplement:** 250–500 mg EPA+DHA; check with doctor if on blood thinners.
+        """)
+
+    with st.expander("**Zinc**"):
+        st.markdown("""
+        - **Why:** Wound healing, immunity, taste.
+        - **Sources:** Legumes, nuts, seeds, whole grains, dairy.
+        - **Supplement:** 8–11 mg; high doses can affect copper absorption.
+        """)
+
+    with st.expander("**Probiotics**"):
+        st.markdown("""
+        - **Why:** Gut health, immunity, digestion.
+        - **Sources:** Yogurt, buttermilk, fermented foods (idli, dosa batter).
+        - **Supplement:** Lactobacillus, Bifidobacterium; choose strains suited to elderly.
+        """)
+
+    with st.expander("**Turmeric / Curcumin**"):
+        st.markdown("""
+        - **Why:** Anti-inflammatory; may support joints and general wellness.
+        - **Sources:** Turmeric in cooking, haldi milk.
+        - **Note:** Can interact with blood thinners; discuss with doctor.
+        """)
+
+    with st.expander("**Ashwagandha**"):
+        st.markdown("""
+        - **Why:** Traditionally used for stress, sleep, energy.
+        - **Note:** May affect thyroid, blood sugar, blood pressure; consult doctor before use.
+        """)
+
+    st.markdown("---")
+    st.markdown("## 📅 Weekly Food Plan")
+
+    st.markdown("""
+    A practical meal plan aligned with nutritional requirements for elderly care. Focus: **protein** (wound healing), **calcium**, **Vitamin C**, **zinc**, **probiotics**, **omega-3**. Adjust textures (soft, mashed) and portion sizes as needed.
+    """)
+
+    plan_df = pd.DataFrame({
+        "Meal": ["Early morning", "Breakfast", "Mid-morning", "Lunch", "Evening", "Dinner", "Before bed"],
+        "Time": ["6:30–7:00", "8:00–8:30", "10:30–11:00", "12:30–1:00", "4:00–4:30", "7:00–7:30", "9:00–9:30"],
+        "Purpose": ["Hydration, gentle start", "Main meal, protein", "Snack, energy", "Main meal, balanced", "Light snack", "Lighter main", "Sleep support"],
+    })
+    st.dataframe(plan_df, use_container_width=True, hide_index=True)
+
+    st.markdown("### Sample daily template")
+    st.markdown("""
+    | Meal | Options (rotate) |
+    | --- | --- |
+    | **Early morning** | Warm water + lemon, or haldi milk (turmeric), or green tea |
+    | **Breakfast** | Oats/porridge + milk + banana + **PROTEINEX 1 scoop** • OR Idli/dosa + sambar + chutney • OR Poha + peanuts + lemon • OR Upma + coconut |
+    | **Mid-morning** | Fruit (papaya, banana, apple) • OR Buttermilk • OR Handful of nuts (almonds, walnuts) |
+    | **Lunch** | Dal + rice + sabzi + roti + curd • OR Fish/egg curry + rice + vegetables • OR Khichdi + papad + pickle |
+    | **Evening** | Milk + biscuits • OR Fruit • OR **PROTEINEX 1 scoop** with milk • OR Sprouted salad |
+    | **Dinner** | Light: Soup + chapati + vegetable • OR Khichdi + yogurt • OR Rice + dal + steamed vegetables |
+    | **Before bed** | Warm milk (optional) |
+    """)
+
+    st.markdown("### Weekly rotation — protein & key nutrients")
+
+    week_plan = pd.DataFrame({
+        "Day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "Protein focus": ["Dal, paneer", "Egg, fish", "Chicken, legumes", "Paneer, dal", "Fish, egg", "Legumes, yogurt", "Mixed — khichdi"],
+        "Calcium": ["Milk, curd, paneer", "Milk, fish", "Curd, ragi", "Paneer, milk", "Fish, curd", "Yogurt, milk", "Curd, milk"],
+        "Vitamin C": ["Lemon, tomato, papaya", "Orange, capsicum", "Amla, leafy greens", "Tomato, guava", "Lemon, broccoli", "Papaya, tomato", "Lemon, vegetables"],
+        "Probiotics": ["Curd", "Buttermilk", "Curd", "Buttermilk", "Curd", "Yogurt, fermented", "Curd"],
+    })
+    st.dataframe(week_plan, use_container_width=True, hide_index=True)
+
+    st.markdown("### Sample weekly menu (detailed)")
+
+    with st.expander("**Monday**"):
+        st.markdown("""
+        - **Breakfast:** Oats cooked in milk, banana, PROTEINEX 1 scoop
+        - **Lunch:** Moong dal, rice, bhindi sabzi, roti, curd
+        - **Dinner:** Vegetable soup, chapati, paneer bhurji
+        """)
+
+    with st.expander("**Tuesday**"):
+        st.markdown("""
+        - **Breakfast:** 2 idli, sambar, coconut chutney
+        - **Lunch:** Fish curry (or egg curry), rice, mixed vegetables, buttermilk
+        - **Dinner:** Khichdi, papad, curd
+        """)
+
+    with st.expander("**Wednesday**"):
+        st.markdown("""
+        - **Breakfast:** Poha with peanuts, lemon, PROTEINEX 1 scoop
+        - **Lunch:** Chole, rice, roti, raita, salad
+        - **Dinner:** Dal, rice, palak sabzi, curd
+        """)
+
+    with st.expander("**Thursday**"):
+        st.markdown("""
+        - **Breakfast:** Upma, coconut chutney
+        - **Lunch:** Paneer curry, dal, rice, roti, buttermilk
+        - **Dinner:** Vegetable pulao, raita
+        """)
+
+    with st.expander("**Friday**"):
+        st.markdown("""
+        - **Breakfast:** Dosa, sambar, chutney
+        - **Lunch:** Egg curry (or chicken), rice, beans sabzi, curd
+        - **Dinner:** Soup, chapati, dal
+        """)
+
+    with st.expander("**Saturday**"):
+        st.markdown("""
+        - **Breakfast:** Paratha with yogurt, PROTEINEX 1 scoop
+        - **Lunch:** Rajma, rice, roti, cucumber raita
+        - **Dinner:** Khichdi, papad, pickle
+        """)
+
+    with st.expander("**Sunday**"):
+        st.markdown("""
+        - **Breakfast:** Pancakes or bread with egg, milk
+        - **Lunch:** Roti, chole, rice, mixed vegetables, curd
+        - **Dinner:** Light khichdi, yogurt
+        """)
+
+    st.markdown("### Tips for this food plan")
+    st.markdown("""
+    - **PROTEINEX:** 2 scoops/day — split (1 at breakfast, 1 at evening) or as advised.
+    - **Texture:** Soft, well-cooked, mashed if needed. Avoid hard, dry, or choking-risk foods.
+    - **Portions:** Smaller, more frequent meals if appetite is low.
+    - **Hydration:** Water, buttermilk, soups, milk — aim 1.5–2 L.
+    - **Omega-3:** Include fish 2–3×/week; walnuts in snacks.
+    - **Sync with Nutrition Chart:** Use the Nutrition Chart page to set your preferred weekly meals.
+    """)
+
+    st.markdown("---")
+    st.markdown("### ⚠️ Important Notes")
+
+    st.markdown("""
+    - **Consult a doctor or dietitian** before starting any supplement.
+    - **Drug interactions:** Supplements can interact with medications (e.g. blood thinners, diabetes drugs).
+    - **Quality:** Choose reputable brands; avoid unregulated products.
+    - **Food first:** Prioritise a balanced diet; supplements complement, not replace, food.
+    - **Track in Inventory:** Log supplements in the Inventory section for stock and re-order alerts.
+    """)
+
+    st.markdown("---")
+    st.markdown("### 📌 For This Care Context")
+
+    st.markdown("""
+    Given respiratory support needs and wound care (bed sores):
+    - **Protein:** Ensure adequate intake (PROTEINEX + dietary sources) for wound healing.
+    - **Vitamin C & Zinc:** Support tissue repair.
+    - **Vitamin D:** Often deficient; consider testing and supplementation if advised.
+    - **Hydration:** Adequate fluids; monitor if on fluid restrictions.
+    """)
 
 # ==================== ENGLISH BREAKFAST GUIDE ====================
 elif page == "🍳 English Breakfast Guide":
