@@ -323,6 +323,7 @@ page = st.sidebar.radio(
         "📅 Daily Tasks & Schedule",
         "📋 Daily ToDo",
         "🍽️ Nutrition Chart",
+        "🍳 English Breakfast Guide",
         "📦 Inventory",
     ],
     label_visibility="collapsed"
@@ -1000,6 +1001,253 @@ elif page == "🍽️ Nutrition Chart":
                     save_json(NUTRITION_FILE, nutrition)
                     st.success(f"{day} saved.")
                     st.rerun()
+
+# ==================== ENGLISH BREAKFAST GUIDE ====================
+elif page == "🍳 English Breakfast Guide":
+    st.subheader("🍳 The Indian Guide to English Breakfast")
+    st.markdown("""
+    *Master every technique from boiling to frying. Step-by-step instructions, Indian substitutions & pro tips.*  
+    Adapted from **English Breakfast for Indians** — a comprehensive guide for Indian cooks.
+    """)
+
+    st.markdown("### 📺 Watch & Learn — YouTube Tutorials")
+    yt_cols = st.columns(2)
+    with yt_cols[0]:
+        st.markdown("""
+        - [Full English Breakfast 🥓🍳](https://www.youtube.com/watch?v=ZEJNpx9aYFI)
+        - [Basics with Babish — Full English](https://www.youtube.com/watch?v=n2POMVVED1A)
+        - [A Proper Full English Breakfast](https://www.youtube.com/watch?v=P-WNLRsLlvE)
+        """)
+    with yt_cols[1]:
+        st.markdown("""
+        - [Gordon Ramsay — Perfect Scrambled Eggs](https://www.youtube.com/watch?v=quNIZN6yAQo)
+        - [How to Make Breakfast Like a Brit](https://www.youtube.com/watch?v=rmieAqTG1wI)
+        """)
+
+    st.markdown("---")
+    st.markdown("### 🍽️ What is a Full English Breakfast?")
+    st.markdown("""
+    A traditional **Full English** (or "Fry-Up") typically includes:
+    - Back bacon or streaky bacon
+    - Fried or scrambled eggs
+    - Pork sausages
+    - Grilled tomatoes
+    - Baked beans
+    - Toast with butter
+    - Sautéed mushrooms
+    - Black pudding (optional)
+    - Hash browns (modern versions)
+    """)
+    st.info("💡 Many ingredients have easy Indian substitutes — noted throughout this guide.")
+
+    st.markdown("---")
+    st.markdown("### 🕐 Cooking Timeline (Visualization)")
+    timeline_df = pd.DataFrame({
+        "Time": ["T-25 min", "T-15 min", "T-12 min", "T-10 min", "T-8 min", "T-6 min", "T-5 min", "T-4 min", "T-3 min", "T-0"],
+        "Item": ["Sausages", "Hash browns", "Tomatoes", "Bacon", "Mushrooms", "Beans", "Tomatoes flip", "Toast", "Eggs", "Plate & serve"],
+        "Action": ["Start grilling", "Oven/pan", "Grill cut-side down", "Pan fry", "Sauté", "Warm on low", "Flip cut-side up", "Start toasting", "Cook last", "Serve immediately"],
+    })
+    st.dataframe(timeline_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 📖 Part 1: Cooking Techniques")
+
+    with st.expander("**Chapter 1: Boiling** — Eggs & More", expanded=True):
+        st.markdown("""
+        **What is Boiling?** Heating a liquid to 100°C and submerging food to cook.
+
+        **Types** | **Use**
+        --- | ---
+        Full rolling boil | Pasta, potatoes, hard-boiled eggs
+        Gentle simmer (85–95°C) | Poached eggs, sauces, soups
+        Blanching | Quick dip, then ice water — preserves vegetable colour
+
+        **Perfect Soft Boiled Egg:**
+        1. Remove eggs from fridge 10 min before cooking
+        2. Bring water to full rolling boil
+        3. Gently lower eggs, reduce to simmer
+        4. **4 min** = runny yolk | **5 min** = jammy yolk | **7 min** = medium | **10–12 min** = hard
+        5. Transfer to ice water 1 min, then peel
+        """)
+        boil_df = pd.DataFrame({
+            "Type": ["Soft Boiled", "Medium Boiled", "Hard Boiled"],
+            "Time": ["4–5 mins", "7 mins", "10–12 mins"],
+            "Yolk": ["Runny, liquid", "Jammy, semi-set", "Fully set, firm"],
+            "Serve With": ["Toast soldiers", "Salads, toast", "Egg mayo, sandwiches"],
+        })
+        st.dataframe(boil_df, use_container_width=True, hide_index=True)
+        st.caption("Tip: Add salt or vinegar to water to prevent cracking. Use room-temperature eggs.")
+
+    with st.expander("**Chapter 2: Frying** — Eggs, Bacon, Hash Browns"):
+        st.markdown("""
+        **Types:** Shallow frying (most common) | Deep frying | Dry frying (no oil — bacon fat releases)
+
+        **Fats:** Butter (eggs) | Ghee (Indian substitute) | Vegetable oil | Bacon fat (traditional)
+
+        **Fried Egg Styles:**
+        - **Sunny Side Up:** One side only, yolk runny, cover 30 sec to set white
+        - **Over Easy:** Flip briefly, yolk runny
+        - **Over Hard:** Both sides until yolk firm
+        - **Basted:** Spoon hot butter over yolk continuously
+
+        **Tip:** Low-to-medium heat. High heat = rubbery white, burnt edges. Ghee adds nutty aroma.
+        """)
+
+    with st.expander("**Chapter 3: Scrambling** — English Method"):
+        st.markdown("""
+        **English vs American:** English = low heat, patience, creamy curds. American = high heat, drier.
+
+        **Ingredients (Serves 2):**
+        | Ingredient | Quantity | Notes |
+        | --- | --- | --- |
+        | Eggs | 4 large | Room temperature |
+        | Butter | 30g | Substitute: ghee |
+        | Milk or cream | 2 tbsp | Full-fat |
+        | Salt | To taste | Add after cooking |
+        | White pepper | Pinch | Or black pepper |
+        | Chives | Optional | Spring onion greens work |
+
+        **Steps:**
+        1. Beat eggs, milk, pepper — do not over-beat
+        2. Melt butter in pan on LOW heat
+        3. Pour eggs, wait 20–30 sec
+        4. Drag S-shapes with spatula, fold gently
+        5. Move pan off heat every few seconds
+        6. Remove when slightly underdone — residual heat finishes
+        7. Season with salt only at the end
+        8. Serve on hot buttered toast
+
+        **Indian twist:** Add turmeric + finely chopped green chilli.
+        """)
+
+    with st.expander("**Chapter 4: Sautéing** — Mushrooms"):
+        st.markdown("""
+        **Key:** Mushrooms must go into a HOT pan. Cold pan = grey, watery mushrooms.
+
+        **Ingredients (Serves 2):**
+        | Ingredient | Quantity | Notes |
+        | --- | --- | --- |
+        | Button mushrooms | 200g | Or cremini |
+        | Butter | 20g | Ghee or olive oil |
+        | Garlic | 2 cloves, minced | Optional |
+        | Thyme | 2 sprigs | Dried: half quantity |
+        | Parsley | For garnish | Coriander works |
+
+        **Steps:**
+        1. Wipe mushrooms with damp cloth — do not wash
+        2. Slice thickly (5mm)
+        3. Heat pan MEDIUM-HIGH until very hot
+        4. Add butter, foam, then mushrooms in SINGLE LAYER
+        5. Do not stir for 2 min — let sear
+        6. Toss once, 60–90 sec more
+        7. Add garlic, thyme, 1 min
+        8. Season, finish with butter knob
+        """)
+
+    st.markdown("---")
+    st.markdown("### 🍳 Part 2: Full Recipe & Ingredients")
+
+    with st.expander("**Complete Ingredients List** (Serves 4)"):
+        full_df = pd.DataFrame({
+            "Ingredient": [
+                "Back bacon or streaky bacon", "Pork sausages", "Eggs", "Button mushrooms",
+                "Large tomatoes", "Baked beans (tinned)", "Thick white bread", "Butter",
+                "Vegetable oil", "Optional: black pudding", "Optional: hash browns",
+            ],
+            "Quantity": ["4–6 rashers", "4", "4", "150g", "2 halved", "1 tin 400g", "4 slices", "50g", "2 tbsp", "2 slices", "4 pieces"],
+            "Indian Substitute": [
+                "Chicken bacon (Licious)", "Chicken/turkey sausages", "—", "—",
+                "—", "Heinz (imported) or homemade", "—", "Amul salted butter", "—",
+                "Spiced beetroot slices", "—",
+            ],
+        })
+        st.dataframe(full_df, use_container_width=True, hide_index=True)
+
+    with st.expander("**Vegetarian Adaptations**"):
+        veg_df = pd.DataFrame({
+            "Original": ["Pork/chicken bacon", "Pork sausages", "Black pudding", "Baked beans", "Butter"],
+            "Vegetarian Substitute": ["Smoked paneer strips", "Vegetable soya sausages", "Spiced beetroot slices", "Rajma in tomato sauce", "Vegan butter or ghee"],
+        })
+        st.dataframe(veg_df, use_container_width=True, hide_index=True)
+
+        st.markdown("**Paneer Bacon (Marinated):**")
+        st.markdown("""
+        | Ingredient | Quantity |
+        | --- | --- |
+        | Paneer | 200g, thin strips 4mm |
+        | Soy sauce | 2 tbsp |
+        | Smoked paprika | 1 tsp |
+        | Maple syrup/honey | 1 tsp |
+        | Garlic powder | ½ tsp |
+        | Oil | 1 tbsp |
+        """)
+
+    with st.expander("**HP Sauce (Homemade Brown Sauce)**"):
+        st.markdown("""
+        | Ingredient | Quantity |
+        | --- | --- |
+        | Tamarind paste | 3 tbsp |
+        | Date paste/jaggery | 2 tbsp |
+        | Malt vinegar | 2 tbsp |
+        | Soy sauce | 1 tbsp |
+        | Worcestershire sauce | 1 tsp |
+        | Tomato ketchup | 3 tbsp |
+        | Mixed spice powder | ½ tsp |
+        | Salt | To taste |
+
+        Combine, simmer 3–4 min until thickened. Cool, store in jar. Keeps 2 weeks.
+        """)
+
+    st.markdown("---")
+    st.markdown("### 🛠️ Troubleshooting")
+
+    with st.expander("Common Problems & Solutions"):
+        prob_df = pd.DataFrame({
+            "Item": ["Eggs", "Bacon", "Mushrooms", "Toast", "Sausages"],
+            "Problem": [
+                "Eggs spread in pan", "Bacon burnt & curling", "Grey, watery mushrooms", "Pale inside, burnt edges", "Brown outside, raw inside",
+            ],
+            "Solution": [
+                "Use fresh eggs only",
+                "Reduce heat; score fat edge",
+                "Pan not hot enough; cook in batches",
+                "Move grill further away",
+                "Reduce heat; cook slower; prick 4–5 times",
+            ],
+        })
+        st.dataframe(prob_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 📚 Glossary")
+    gloss_df = pd.DataFrame({
+        "Term": ["Fry-up", "Rasher", "Back bacon", "Streaky bacon", "Black pudding", "Basted egg", "Soldiers", "Hash browns", "HP Sauce", "Full works"],
+        "Meaning": [
+            "British slang for Full English",
+            "Single slice of bacon",
+            "From back loin — leaner",
+            "From belly — fattier, crispier",
+            "Sausage from pork blood, oats",
+            "Egg with hot butter spooned over",
+            "Toast fingers for dipping",
+            "Grated fried potato cakes",
+            "Britain's iconic brown sauce",
+            "Complete Full English",
+        ],
+    })
+    st.dataframe(gloss_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 📖 Make-Ahead")
+    st.markdown("""
+    - **Hash browns:** Bake, cool, refrigerate. Reheat 10 min at 200°C.
+    - **Beans:** Homemade batch, refrigerate 3–4 days.
+    - **HP Sauce:** Homemade jar, 2 weeks.
+    - **Paneer bacon:** Marinate overnight.
+    - **Sausages:** Grill ahead, keep warm 100°C oven up to 30 min.
+    """)
+
+    st.markdown("---")
+    st.success("**Happy cooking!** — From your kitchen to the British countryside. Experiment with ghee, green chilli, cumin. The recipe is yours to make.")
 
 # ==================== INVENTORY ====================
 elif page == "📦 Inventory":
