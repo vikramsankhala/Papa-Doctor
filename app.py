@@ -321,6 +321,7 @@ page = st.sidebar.radio(
         "🦠 Disinfection & Pest Control",
         "📱 Technology Hygiene",
         "🏥 General Surgery Care",
+        "🩹 Skin, Wound & Physiotherapy",
         "📅 Daily Tasks & Schedule",
         "📋 Daily ToDo",
         "🍽️ Nutrition Chart",
@@ -984,6 +985,156 @@ elif page == "🏥 General Surgery Care":
         </ul>
     </div>
     """, unsafe_allow_html=True)
+
+# ==================== SKIN, WOUND & PHYSIOTHERAPY ====================
+elif page == "🩹 Skin, Wound & Physiotherapy":
+    st.subheader("🩹 Skin Care, Disinfectants, Wounds, Necrosis, Surgery & Physiotherapy")
+    st.markdown("Comprehensive guidance for skin health, wound management, and rehabilitation. *Follow doctor's orders for all wound and surgical care.*")
+
+    st.markdown("---")
+    st.markdown("## 1. Skin Care")
+
+    with st.expander("**Daily skin care for bed-bound / elderly**", expanded=True):
+        st.markdown("""
+        - **Cleansing:** Gentle wash with mild soap; pat dry. Avoid harsh scrubbing.
+        - **Moisturising:** Apply moisturiser (e.g. coconut oil, prescribed lotions) after bath to prevent dryness and cracking.
+        - **Pressure areas:** Inspect sacrum, heels, hips, elbows daily for redness or breakdown.
+        - **Repositioning:** Change position every 2 hours to reduce pressure.
+        - **Barrier creams:** Use zinc oxide or prescribed barrier cream in diaper area to prevent rash.
+        - **EMODEL DS lotion:** Apply locally as per prescription.
+        """)
+
+    with st.expander("**Skin health tips**"):
+        st.markdown("""
+        - **Hydration:** Adequate fluids; dry skin is common in elderly.
+        - **Nutrition:** Protein, Vitamin C, zinc support skin healing.
+        - **Avoid friction:** Use soft bedding; avoid dragging when repositioning.
+        - **Sun:** Limited exposure; use sunscreen if outdoors.
+        """)
+
+    st.markdown("---")
+    st.markdown("## 2. Disinfectants for Wounds & Skin")
+
+    disinf_df = pd.DataFrame({
+        "Agent": ["Normal saline", "Povidone-iodine (Betadine)", "Chlorhexidine", "Hydrogen peroxide", "Sodium hypochlorite (Dakin's)"],
+        "Use": ["Routine wound irrigation", "Antiseptic for wound cleaning", "Skin antisepsis before procedure", "Limited — can damage tissue", "Infected wounds (diluted)"],
+        "Notes": ["Safest for irrigation; no tissue damage", "Tincture of Iodine used in wound care", "0.05% for wound; avoid eyes", "Use sparingly; delays healing", "0.025–0.5%; doctor-directed"],
+    })
+    st.dataframe(disinf_df, use_container_width=True, hide_index=True)
+
+    st.markdown("""
+    **For wound cleaning (as per Doctor at Door notes):** Normal Saline and Tincture of Iodine.
+    - **Normal saline:** Flush wound gently to remove debris.
+    - **Tincture of Iodine:** Apply as directed; effective antiseptic.
+    """)
+
+    st.markdown("---")
+    st.markdown("## 3. Wound Care")
+
+    with st.expander("**Wound types & stages (pressure ulcers / bed sores)**"):
+        stage_df = pd.DataFrame({
+            "Stage": ["Stage 1", "Stage 2", "Stage 3", "Stage 4", "Unstageable"],
+            "Description": ["Intact skin, non-blanchable redness", "Partial thickness; blister or shallow open", "Full thickness; visible fat", "Full thickness; bone/tendon exposed", "Slough or eschar obscures depth"],
+        })
+        st.dataframe(stage_df, use_container_width=True, hide_index=True)
+        st.caption("Current care context: Stage 3/4 bed sores on both buttocks.")
+
+    with st.expander("**General wound care steps**"):
+        st.markdown("""
+        1. **Hand hygiene** — wash hands; use gloves.
+        2. **Remove old dressing** — discard in sealed bag.
+        3. **Clean wound** — normal saline; gentle irrigation. Pat surrounding skin dry.
+        4. **Apply antiseptic** — as per doctor (e.g. Tincture of Iodine).
+        5. **Apply dressing** — sterile gauze, foam, or as prescribed.
+        6. **Secure** — tape or bandage. Do not wrap too tightly.
+        7. **Wash hands** after removing gloves.
+        """)
+
+    with st.expander("**Signs of infection — call doctor**"):
+        st.markdown("""
+        - Increased redness, warmth, swelling
+        - Pus or foul-smelling discharge
+        - Fever, chills
+        - Increased pain
+        - Wound not healing or getting larger
+        """)
+
+    st.markdown("---")
+    st.markdown("## 4. Necrosis")
+
+    st.markdown("""
+    **Necrosis** = death of body tissue due to lack of blood supply, infection, or injury.
+
+    **Types relevant to wound care:**
+    - **Dry necrosis (eschar):** Black, dry, hard tissue. Do not remove yourself — requires medical debridement.
+    - **Wet necrosis:** Moist, discoloured tissue; infection risk. Needs doctor evaluation.
+    - **Slough:** Yellow/white dead tissue on wound surface. May be removed by doctor or trained nurse.
+
+    **Action:** Report any black, grey, or spreading dead tissue to the doctor immediately. Do not attempt to debride at home.
+    """)
+
+    st.markdown("---")
+    st.markdown("## 5. Surgery & Post-Surgical Skin Care")
+
+    with st.expander("**Pre-surgery skin prep**"):
+        st.markdown("""
+        - Skin cleaned with antiseptic (chlorhexidine or povidone-iodine) as per hospital protocol.
+        - Shaving may be done; avoid nicks.
+        """)
+
+    with st.expander("**Post-surgery wound care**"):
+        st.markdown("""
+        - Keep dressing dry and clean.
+        - Change as per doctor's schedule.
+        - Watch for signs of infection.
+        - Support healing with good nutrition (protein, Vitamin C, zinc).
+        """)
+
+    with st.expander("**Surgical site care at home**"):
+        st.markdown("""
+        - Wash hands before touching dressing.
+        - Do not remove staples/sutures yourself.
+        - Report bleeding, opening, or discharge.
+        """)
+
+    st.markdown("---")
+    st.markdown("## 6. Physiotherapy")
+
+    with st.expander("**Goals in elderly / bed-bound care**", expanded=True):
+        st.markdown("""
+        - **Maintain joint mobility** — passive/active range of motion.
+        - **Prevent contractures** — gentle stretching.
+        - **Improve circulation** — leg exercises, positioning.
+        - **Support breathing** — deep breathing, incentive spirometry if advised.
+        - **Safe mobility** — transfer practice, gait training with support.
+        """)
+
+    with st.expander("**Simple exercises (as tolerated)**"):
+        st.markdown("""
+        - **Ankle pumps:** Point toes up/down; 10× each foot, several times daily.
+        - **Knee bends:** Gently bend and straighten knees (if able).
+        - **Arm raises:** Raise arms overhead; lower slowly.
+        - **Deep breathing:** Inhale slowly, hold 2–3 sec, exhale. 5–10×, 2–3× daily.
+        - **Seated leg lifts:** If sitting, lift one leg at a time, hold, lower.
+        """)
+
+    with st.expander("**When to involve a physiotherapist**"):
+        st.markdown("""
+        - After surgery or hospitalisation
+        - Significant weakness or mobility loss
+        - Risk of falls
+        - Breathing difficulties
+        - Contractures or stiffness
+        - Doctor recommends PT
+        """)
+
+    with st.expander("**Transfer belt (Posey) for physiotherapy**"):
+        st.markdown("""
+        The [Posey Transfer Belt](https://www.amazon.in/Posey-Extra-Wide-Therapists-Caregivers-6537Q/dp/B00LWVQ3WA) supports safe standing, walking, and transfers during physiotherapy. See Care Equipment Guide for use instructions.
+        """)
+
+    st.markdown("---")
+    st.caption("*This guide is for reference. All wound, necrosis, and surgical care must follow the treating doctor's instructions.*")
 
 # ==================== DAILY TASKS & SCHEDULE ====================
 elif page == "📅 Daily Tasks & Schedule":
