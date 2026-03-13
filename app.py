@@ -328,6 +328,7 @@ page = st.sidebar.radio(
         "🍽️ Nutrition Chart",
         "🥗 Nutrition & Supplements",
         "🍳 English Breakfast Guide",
+        "🛡️ Executive Protection",
         "📦 Inventory",
     ],
     label_visibility="collapsed"
@@ -1906,6 +1907,167 @@ elif page == "🍳 English Breakfast Guide":
 
     st.markdown("---")
     st.success("**Happy cooking!** — From your kitchen to the British countryside. Experiment with ghee, green chilli, cumin. The recipe is yours to make.")
+
+# ==================== EXECUTIVE PROTECTION ====================
+elif page == "🛡️ Executive Protection":
+    st.subheader("🛡️ Executive Protection Master Manual")
+    st.markdown("**State-of-the-Art Training Reference** — Equipment · Weapons · Tactics · Protocols | *For informational and training reference only.*")
+    st.caption("Adapted from Executive Protection Master Manual. Classification: RESTRICTED – OFFICIAL USE ONLY. Unauthorized reproduction prohibited.")
+
+    st.markdown("---")
+    st.markdown("### 📺 Overview & Agency Training")
+    st.markdown("""
+    - [How Secret Service Agents Are Trained For A Zero-Fail Mission](https://www.youtube.com/watch?v=iVBcVbx_HQA)
+    - [Secret Service Counter Assault Team Training](https://www.youtube.com/watch?v=4hMPgLts8jA)
+    - [The Secret Service Elite Counter Assault Team](https://www.youtube.com/watch?v=da2ELdz3QnA)
+    - [Secret Service Training City](https://www.youtube.com/watch?v=LP9XRca8qsk)
+    """)
+
+    st.markdown("---")
+    st.markdown("## Chapter 2: Combatives & Defensive Tactics")
+
+    with st.expander("**Krav Maga** — Israeli system, rapid neutralization"):
+        st.markdown("""
+        - [Krav Maga Self-Defense Masterclass](https://www.youtube.com/watch?v=Fs6TgCUVjRc)
+        - [Defend Yourself with Krav Maga Techniques](https://www.youtube.com/watch?v=-Y4OujZ63UE)
+        - [Krav Maga: Defend Against Straight Punch](https://www.youtube.com/watch?v=15lDzHSIO-k)
+        - [Krav Maga Self-Defense Playlist](https://www.youtube.com/playlist?list=PLLALQuK1NDrhbNpRSUEAloceyNEMzcKzN)
+        """)
+
+    with st.expander("**Brazilian Jiu-Jitsu** — Ground defense"):
+        st.markdown("""
+        - [BJJ Basics for Self-Defense](https://www.youtube.com/results?search_query=BJJ+self+defense+basics)
+        - [BJJ Escapes and Defense](https://www.youtube.com/results?search_query=BJJ+escape+defense)
+        """)
+
+    with st.expander("**Weapons Retention & Disarming**"):
+        st.markdown("""
+        - [Firearm Retention Techniques](https://www.youtube.com/results?search_query=firearm+retention+techniques)
+        - [Edged Weapon Defense](https://www.youtube.com/results?search_query=knife+defense+disarm)
+        """)
+
+    st.markdown("---")
+    st.markdown("## Chapter 4: Weapons Systems")
+
+    with st.expander("**Primary Sidearms**", expanded=True):
+        sidearm_df = pd.DataFrame({
+            "Agency": ["USSS (US)", "USSS (US)", "Shin Bet (Israel)", "Shin Bet (Israel)", "CSPF (China)", "CSPF (China)"],
+            "Weapon": ["SIG Sauer P229/P226", "Glock 19 Gen5", "Glock 17/19", "Jericho 941", "QSZ-92", "CS/LP5"],
+            "Caliber": ["9mm / .357 SIG", "9mm", "9mm", "9mm / .40 S&W", "9mm / 5.8mm", "9mm"],
+            "YouTube": [
+                "[SIG P229](https://www.youtube.com/results?search_query=SIG+P229)",
+                "[Glock 19 Gen5](https://www.youtube.com/watch?v=jQzASrIOqcM)",
+                "[Glock 17](https://www.youtube.com/results?search_query=Glock+17)",
+                "[Jericho 941](https://www.youtube.com/results?search_query=Jericho+941)",
+                "[QSZ-92](https://www.youtube.com/results?search_query=QSZ-92)",
+                "[CZ-75](https://www.youtube.com/results?search_query=CZ+75)",
+            ],
+        })
+        st.dataframe(sidearm_df, use_container_width=True, hide_index=True)
+
+    with st.expander("**Submachine Guns & PDWs**"):
+        st.markdown("""
+        | Weapon | Agency | YouTube |
+        | --- | --- | --- |
+        | **HK MP5** | USSS CAT | [HK MP5 - Greatest Submachine Gun](https://www.youtube.com/watch?v=fasedTro2KQ) · [MP5 History](https://www.youtube.com/watch?v=3NL46xSac1o) |
+        | **HK UMP45** | USSS CAT | [UMP45](https://www.youtube.com/results?search_query=HK+UMP45) |
+        | **HK MP7A2** | VIP protection | [MP7](https://www.youtube.com/results?search_query=HK+MP7) |
+        | **Uzi Pro / Micro Uzi** | Shin Bet | [Uzi](https://www.youtube.com/results?search_query=Uzi+submachine+gun) |
+        | **FN P90** | CSPF | [P90](https://www.youtube.com/results?search_query=FN+P90) |
+        """)
+
+    with st.expander("**Counter-Sniper & Long-Range**"):
+        st.markdown("""
+        | Platform | Caliber | YouTube |
+        | --- | --- | --- |
+        | Remington MSR / Barrett MRAD | .300 Win Mag / .338 Lapua | [Barrett MRAD](https://www.youtube.com/results?search_query=Barrett+MRAD) |
+        | AI AXMC / IWI Dan .338 | .338 Lapua | [Accuracy International](https://www.youtube.com/results?search_query=Accuracy+International+AXMC) |
+        | Barrett M82A1 | .50 BMG | [Barrett M82](https://www.youtube.com/results?search_query=Barrett+M82) |
+        """)
+
+    with st.expander("**Non-Lethal & Less-Lethal**"):
+        st.markdown("""
+        | Item | Use | YouTube |
+        | --- | --- | --- |
+        | **OC Spray (MK-4)** | Crowd dispersion, compliance | [OC Spray Training](https://www.youtube.com/results?search_query=OC+spray+pepper+training) |
+        | **TASER X26P / X2** | Controlled deployment | [TASER X26P Quick Start](https://www.youtube.com/watch?v=hzCOOtX8olU) |
+        | **ASP Expandable Baton** | Intermediate force | [ASP Baton](https://www.youtube.com/results?search_query=ASP+expandable+baton) |
+        | **Less-Lethal Shotgun** | Beanbag, rubber rounds | [Less-Lethal Shotgun](https://www.youtube.com/results?search_query=beanbag+shotgun) |
+        | **Flashbang / M84** | Distraction, room entry | [Stun Grenade](https://www.youtube.com/results?search_query=flashbang+stun+grenade) |
+        """)
+
+    st.markdown("---")
+    st.markdown("## Chapter 5: Protective Equipment")
+
+    with st.expander("**Body Armor**"):
+        armor_df = pd.DataFrame({
+            "Type": ["Concealable Soft Armor", "Hard Plate Carrier", "CBRN Vest", "Ballistic Helmet"],
+            "Level": ["NIJ IIIA", "NIJ IV", "III + CBRN", "IIIA"],
+            "Use": ["Daily under suit", "Elevated threat", "WMD scenarios", "Tactical"],
+            "Examples": ["Point Blank, Safariland", "Crye JPC, Ferro", "Blücher TYCHEM", "Team Wendy, Ops-Core"],
+        })
+        st.dataframe(armor_df, use_container_width=True, hide_index=True)
+        st.markdown("[Body Armor Explained](https://www.youtube.com/results?search_query=body+armor+NIJ+levels)")
+
+    with st.expander("**Protective Vehicles**"):
+        st.markdown("""
+        | Role | Platform | YouTube |
+        | --- | --- | --- |
+        | Presidential Limousine | Cadillac 'The Beast' | [The Beast](https://www.youtube.com/results?search_query=presidential+limousine+the+beast) |
+        | Follow / CAT | Chevy Suburban, Ford Expedition | [Armored SUV](https://www.youtube.com/results?search_query=armored+suburban) |
+        | Marine One | Sikorsky VH-92A | [Marine One](https://www.youtube.com/results?search_query=Marine+One+helicopter) |
+        """)
+
+    st.markdown("---")
+    st.markdown("## Chapter 7: Medical — TCCC & IFAK")
+
+    with st.expander("**Tactical Combat Casualty Care (TCCC)**"):
+        st.markdown("""
+        - [Introduction to TCCC](https://www.youtube.com/watch?v=UuTej7ALfNg)
+        - [TCCC Tactical Combat Casualty Care](https://www.youtube.com/watch?v=fxY-0dzKHHA)
+        - [TCCC Playlist](https://www.youtube.com/playlist?list=PLY1rbI4cYEdhaf5ltvgOsTZdy1DEwT7kN)
+        """)
+
+    with st.expander("**IFAK Components — Individual First Aid Kit**"):
+        st.markdown("""
+        | Item | YouTube |
+        | --- | --- |
+        | **CAT Gen-7 Tourniquet** | [CAT Tourniquet Application](https://www.youtube.com/watch?v=nKltFWFy4MA) · [Stop The Bleed](https://www.youtube.com/watch?v=wWVne7cUrm8) |
+        | **Combat Gauze / QuikClot** | [Hemostatic Dressing](https://www.youtube.com/results?search_query=combat+gauze+application) |
+        | **Israeli Battle Dressing** | [Pressure Bandage](https://www.youtube.com/results?search_query=Israeli+bandage) |
+        | **Chest Seals (Hyfin)** | [Chest Seal](https://www.youtube.com/results?search_query=chest+seal+application) |
+        | **Decompression Needle** | [Needle Decompression](https://www.youtube.com/results?search_query=tension+pneumothorax+needle+decompression) |
+        | **Nasopharyngeal Airway** | [NPA Insertion](https://www.youtube.com/results?search_query=NPA+insertion) |
+        """)
+
+    st.markdown("---")
+    st.markdown("## Formation & Drills")
+
+    with st.expander("**Diamond Formation**"):
+        st.markdown("""
+        - Point Agent (advance) | Left Flank | **Protectee** | Right Flank | Trail Agent (rear)
+        - [Protective Formations](https://www.youtube.com/results?search_query=executive+protection+formation)
+        """)
+
+    with st.expander("**Immediate Action Drills**"):
+        st.markdown("""
+        - **Cover and Evacuate** — Body Agent covers protectee; outer agents identify threat; evacuation to safe haven
+        - **Counter-Ambush** — Suppressive fire; human shield; extraction to armored vehicle
+        - **Medical Emergency** — Perimeter; TCCC; MEDEVAC
+        - **Chemical/Biological** — Upwind evacuation; PPE; HAZMAT
+        """)
+
+    st.markdown("---")
+    st.markdown("## Appendix: Certifications")
+    cert_df = pd.DataFrame({
+        "Certification": ["Executive Protection Specialist", "Certified Protection Professional (CPP)", "TCCC", "Krav Maga Instructor", "Firearms Instructor", "EMT-B", "Advanced Driving"],
+        "Body": ["ESI", "ASIS International", "NAEMT", "IKMF/KMG", "ILEETA/NRA", "State", "BSR"],
+        "Duration": ["3 weeks", "Exam", "16 hours", "160+ hours", "40 hours", "120–150 hours", "3–5 days"],
+    })
+    st.dataframe(cert_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.caption("*This section is for reference only. Executive protection operations require authorized training and legal authority. Based on Executive Protection Master Manual — US Secret Service, Israeli Shin Bet, Chinese CSPF frameworks. For official use only.*")
 
 # ==================== INVENTORY ====================
 elif page == "📦 Inventory":
