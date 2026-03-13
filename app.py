@@ -329,6 +329,7 @@ page = st.sidebar.radio(
         "🥗 Nutrition & Supplements",
         "🍳 English Breakfast Guide",
         "🛡️ Executive Protection",
+        "🔐 Personal Safety",
         "📦 Inventory",
     ],
     label_visibility="collapsed"
@@ -2068,6 +2069,187 @@ elif page == "🛡️ Executive Protection":
 
     st.markdown("---")
     st.caption("*This section is for reference only. Executive protection operations require authorized training and legal authority. Based on Executive Protection Master Manual — US Secret Service, Israeli Shin Bet, Chinese CSPF frameworks. For official use only.*")
+
+# ==================== PERSONAL SAFETY ====================
+elif page == "🔐 Personal Safety":
+    st.subheader("🛡️ Personal Safety Master Guide")
+    st.markdown("**For Women, Children & Senior Citizens** — Technique • Flow • Instinctive Response | *No gym required. No prior experience needed.*")
+
+    st.markdown("---")
+    st.markdown("### ⚡ Core Principle: Effortless, Least-Time Retaliation")
+    st.markdown("""
+    **The goal:** Responses that are as effortless and least time-consuming as possible. Use **bodyweight and leverage** — not muscle — so the weak can prevail against a stronger opponent.
+
+    **Example — Gentle bodyweight chin push:**
+    1. Place palm of hand on opponent's chin
+    2. Gently push forward, bending forward and using your full bodyweight
+    3. Walk them backward several metres
+    4. Culminate with a sudden jerk against a wall
+
+    *Physics does the work. Your bodyweight + leverage = maximum effect with minimum effort.*
+    """)
+
+    st.markdown("---")
+    st.markdown("## Part 1: Awareness — Your First Weapon")
+
+    with st.expander("**The Awareness Color Code**"):
+        st.markdown("""
+        | Color | State | Your Response |
+        | --- | --- | --- |
+        | White | Unaware — head down, phone out | Avoid. Danger. |
+        | Yellow | Relaxed alert — aware of surroundings | Always aim here in public |
+        | Orange | Focused alert — something draws attention | Watch, move, prepare |
+        | Red | Action ready — threat is real | Tools ready, voice loud |
+        | Black | Active response — attack occurring | Fight, flee, or break freeze |
+        """)
+        st.markdown("""
+        - [Col. Jeff Cooper's Color Code](https://www.youtube.com/watch?v=jWt5rJDLFXk)
+        - [Situational Awareness in Everyday Life](https://www.youtube.com/watch?v=fXy-EVQ7XAc)
+        - [How to Develop Situational Awareness (Tim Kennedy)](https://www.youtube.com/watch?v=eTKx7SBf9Z8)
+        """)
+
+    with st.expander("**Pre-Attack Indicators**"):
+        st.markdown("""
+        - Target glancing, grooming, interview behavior, flanking, thousand-yard stare, blading
+        - [Pre-Attack Indicators Training](https://www.youtube.com/watch?v=3UoM8R_3s-A)
+        - [How Attackers Choose Victims](https://www.youtube.com/watch?v=UwSVZmBwekA)
+        """)
+
+    st.markdown("---")
+    st.markdown("## Part 2: Defensive Tools & Weapons")
+
+    st.info("**Golden Rule:** Your goal is NOT to defeat an attacker. Create 3–5 seconds of disruption — then RUN.")
+
+    with st.expander("**Pepper Spray (OC)**"):
+        st.markdown("""
+        Brands: Sabre Red, Fox Labs. 1.33% MC. Z or figure-8 pattern. Shout 'BACK OFF!' Run immediately.
+        - [How to Use Pepper Spray Correctly](https://www.youtube.com/watch?v=zf4kcDRgJQ0)
+        - [Pepper Spray Mistakes to Avoid](https://www.youtube.com/watch?v=XJjA5Oz_nrM)
+        - [Best Pepper Spray for Women](https://www.youtube.com/watch?v=7R5LY1bDCaM)
+        - [Pepper Spray for Seniors](https://www.youtube.com/watch?v=vRQxMhFXGoY)
+        """)
+
+    with st.expander("**Personal Safety Alarm (130dB+)**"):
+        st.markdown("""
+        SABRE, Vigilant PPS8, BASU eAlarm+. Activate, throw toward attacker, RUN.
+        - [Personal Safety Alarm — How and When](https://www.youtube.com/watch?v=eQ8wGfLpMTY)
+        - [Best Personal Alarms 2024](https://www.youtube.com/watch?v=qXbO1HNO9oM)
+        - [Teaching Children Safety Alarm](https://www.youtube.com/watch?v=1K7vCVzMFVo)
+        """)
+
+    with st.expander("**Tactical Pen / Kubotan**"):
+        st.markdown("""
+        Targets: wrist, temple, collarbone, solar plexus, knee, instep. No strength — contact only.
+        - [Kubotan Basics for Beginners](https://www.youtube.com/watch?v=HqFb9YCZE_E)
+        - [Tactical Pen Self Defense](https://www.youtube.com/watch?v=pVsUuA6Kv9E)
+        - [Kubotan for Women](https://www.youtube.com/watch?v=m2q3v2Pn2mQ)
+        - [Kubotan Pressure Points — No Strength Needed](https://www.youtube.com/watch?v=K3tRk9Xy4cw)
+        """)
+
+    with st.expander("**Walking Cane / Umbrella (Seniors)**"):
+        st.markdown("""
+        Tip push, hook block, low sweep. Reach + distance. Zero grip strength needed.
+        - [Cane Self Defense for Seniors](https://www.youtube.com/watch?v=XVa1yKa0OzE)
+        - [Walking Stick Defense — Arnis Basics](https://www.youtube.com/watch?v=EzEV2SaxJpk)
+        - [Umbrella Self Defense](https://www.youtube.com/watch?v=5RMGqrHiPBo)
+        - [Cane Defense for Older Adults](https://www.youtube.com/watch?v=9bJ_6PAz8AM)
+        """)
+
+    with st.expander("**Stun Gun / Taser**"):
+        st.markdown("""
+        Upper arm, neck, hip. Hold 1–3 sec. TASER Pulse+ fires 15 ft — no contact needed.
+        - [Stun Gun vs Taser](https://www.youtube.com/watch?v=IRLx9_t-MaU)
+        - [How to Use Stun Gun](https://www.youtube.com/watch?v=0_E2g_qGEyQ)
+        - [TASER Pulse+ for Women](https://www.youtube.com/watch?v=CQj1_GBi7GY)
+        - [Stun Gun for Seniors](https://www.youtube.com/watch?v=a7K8bF2Plzw)
+        """)
+
+    with st.expander("**Firearm (Where Legal)**"):
+        st.markdown("""
+        NRA Basic Pistol + Concealed Carry course required. M&P Shield, Glock 43X, Ruger LCP MAX.
+        - [Best Handguns for Women](https://www.youtube.com/watch?v=e-TFKXKlLzk)
+        - [Fundamentals of Pistol Shooting](https://www.youtube.com/watch?v=XMmHexl4Hqo)
+        - [Concealed Carry for Women](https://www.youtube.com/watch?v=WB4nVkGzRMA)
+        - [Handgun Training for Seniors](https://www.youtube.com/watch?v=Y3zF8c_e9kA)
+        - [Home Defense Shotgun](https://www.youtube.com/watch?v=FH43bwCU8Mc)
+        """)
+
+    st.markdown("---")
+    st.markdown("## Part 3: Physical Techniques — Body as Tool (Effortless)")
+
+    st.markdown("**No gym. No strength. Physics and bodyweight.**")
+
+    with st.expander("**Technique 1: Palm Strike** — Bodyweight, not arm", expanded=True):
+        st.markdown("""
+        Palm heel to nose/chin. Step INTO strike — bodyweight does the work. Push THROUGH. Even 100 lb creates significant force.
+        - [Palm Strike for Beginners](https://www.youtube.com/watch?v=qL6y0xwYPEI)
+        - [Palm Strike in Real Self Defense](https://www.youtube.com/watch?v=kXE0A2YlhBI)
+        """)
+
+    with st.expander("**Technique 2: Groin Strike** — Equalizer"):
+        st.markdown("""
+        Knee up (hip drives). If grabbed from front: cup hands, swing low-to-high. From behind: reach back grab/twist, or elbow to solar plexus, or STOMP instep.
+        - [Groin Strike — Women's Self Defense](https://www.youtube.com/watch?v=0y1fLDdJSec)
+        - [Fighting Back from Bear Hug](https://www.youtube.com/watch?v=X9KQeqBN9os)
+        """)
+
+    with st.expander("**Technique 3: Wrist Release** — Use their grip against them"):
+        st.markdown("""
+        Rotate to thumb-finger gap. Drive TOWARD them, arc out. Small circle — inward, out through thumb side.
+        - [Wrist Grab Escape — No Strength](https://www.youtube.com/watch?v=JvNAbzPXWbM)
+        - [Wrist Grab Escapes Compared](https://www.youtube.com/watch?v=K-mAN5s0GxQ)
+        """)
+
+    with st.expander("**Technique 4: Elbow Strike** — Hardest weapon on body"):
+        st.markdown("""
+        Forward, backward, rising. Hip rotation adds power. Minimal force to stun.
+        - [Elbow Strikes — No Experience Needed](https://www.youtube.com/watch?v=VpYqJ4RiEe4)
+        - [Close Quarters — Elbows and Knees](https://www.youtube.com/watch?v=9tKe3CsB_eA)
+        """)
+
+    with st.expander("**Technique 5: Voice** — Loudest weapon"):
+        st.markdown("""
+        Shout 'NO!' or 'BACK OFF!' from diaphragm. 'FIRE!' or 'CALL 911!' alerts bystanders.
+        - [Power of Voice in Self Defense](https://www.youtube.com/watch?v=1U3oSqzE87g)
+        - [How to Shout Effectively](https://www.youtube.com/watch?v=7nLJFEwgEPg)
+        """)
+
+    st.markdown("---")
+    st.markdown("## Part 4: Scenario Responses")
+
+    scenario_df = pd.DataFrame({
+        "Situation": ["Being followed", "Wrist grab", "Bear hug from behind", "Knife at distance", "Grabbed at night", "Home intrusion", "Child grabbed", "Purse snatch"],
+        "First Response": ["Enter business", "Rotate toward thumb", "Drop weight instantly", "Hands up, back away", "Shout + OC spray", "Lock door, call 911", "Shout 'NOT MY PARENT'", "LET IT GO"],
+        "Tool/Technique": ["Voice — call loudly", "Wrist release", "Stomp, elbow, head back", "Verbal + alarm", "Spray face, Z-pattern", "Firearm or barricade", "Run to crowded area", "Step back, shout"],
+        "Then": ["Police if continues", "Run immediately", "Run immediately", "Run when possible", "Run opposite direction", "Do not investigate", "Police immediately", "Describe to police"],
+    })
+    st.dataframe(scenario_df, use_container_width=True, hide_index=True)
+
+    with st.expander("**Being Followed**"):
+        st.markdown("[What To Do If Followed](https://www.youtube.com/watch?v=pjLH2WKTEOM) · [Urban Safety Tactics](https://www.youtube.com/watch?v=X6H-S2U8e4Y)")
+
+    with st.expander("**Grabbed from Behind**"):
+        st.markdown("[Escape Rear Bear Hug](https://www.youtube.com/watch?v=EAnlVCnWDvk) · [Rear Choke Escape](https://www.youtube.com/watch?v=TnPt70P0FZs) · [Bear Hug for Seniors](https://www.youtube.com/watch?v=qNmgO9mfJDE)")
+
+    with st.expander("**Purse/Bag Snatch**"):
+        st.markdown("[Purse Snatch Prevention](https://www.youtube.com/watch?v=Z9c0qBc4kcE) · [Bag Snatch Defense](https://www.youtube.com/watch?v=wJQbNKQbTSo)")
+
+    with st.expander("**Home Intrusion**"):
+        st.markdown("[Home Invasion — What To Do](https://www.youtube.com/watch?v=PkbBaBpkzXc) · [Safe Room Setup](https://www.youtube.com/watch?v=WsZJvCMRXgM)")
+
+    with st.expander("**Child: Stranger Approach**"):
+        st.markdown("[Stranger Danger — Children](https://www.youtube.com/watch?v=JrTEY3rLJmg) · [What Kids Should Shout](https://www.youtube.com/watch?v=IaX1qWJosSE) · [Safe Touch Teaching](https://www.youtube.com/watch?v=GnbNOuRElfU)")
+
+    st.markdown("---")
+    st.markdown("## Part 5: Daily Habits & Home Security")
+    st.markdown("""
+    - [Home Security Basics](https://www.youtube.com/watch?v=3e5MJ5YTN0Q)
+    - [Digital Safety for Women and Seniors](https://www.youtube.com/watch?v=GBf7RhDi9Go)
+    - [Daily Safety Habits](https://www.youtube.com/watch?v=RoHZhQvhTvE)
+    """)
+
+    st.markdown("---")
+    st.caption("*For educational purposes. Practice with a qualified instructor. Check local laws before carrying any defensive tool. Self-defense only in genuine threat situations. Personal Safety Guide — 2025 Edition.*")
 
 # ==================== INVENTORY ====================
 elif page == "📦 Inventory":
