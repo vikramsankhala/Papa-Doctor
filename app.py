@@ -312,6 +312,7 @@ page = st.sidebar.radio(
         "🤖 AI Assistant",
         "🏠 Home Visits",
         "💊 Medication & Treatment",
+        "🏠 Pune Home Medicine Kit",
         "🩺 Vitals & Monitoring",
         "📷 Image Analysis",
         "🧹 Hygiene & Cleanliness",
@@ -557,6 +558,151 @@ elif page == "💊 Medication & Treatment":
     - **Nebuliser:** Clean mask and chamber after each use. Replace filters as per manufacturer.
     - **Document:** Always log administration time and any adverse effects.
     """)
+
+# ==================== PUNE HOME MEDICINE KIT ====================
+elif page == "🏠 Pune Home Medicine Kit":
+    st.subheader("🏠 Pune Home Medicine Kit")
+    st.markdown("**Customized for Pune, Maharashtra** — Hot & humid summers • Monsoon season • Air quality concerns • Common tropical illnesses")
+
+    st.markdown("---")
+    st.markdown("### Why a Pune-Specific Kit?")
+    st.markdown("""
+    Pune's climate and geography create specific health challenges. A well-stocked home medicine kit tailored to local conditions helps manage common ailments quickly and safely, especially during:
+
+    | Season / Condition | Health challenges |
+    | --- | --- |
+    | **Monsoon (June–September)** | Waterborne diseases, fungal infections, dengue, malaria risk |
+    | **Hot summers (March–June)** | Heat exhaustion, dehydration, sunburn, heat rashes |
+    | **Pollution days** | Respiratory issues, allergic rhinitis, eye irritation |
+    | **Rapid weather changes** | Viral fever, cold, flu, sore throat |
+    """)
+
+    st.markdown("---")
+    st.markdown("### 1. Essential Medicines")
+
+    with st.expander("**Fever, Pain & Inflammation**", expanded=True):
+        df1 = pd.DataFrame({
+            "Medicine": ["Paracetamol 500mg", "Ibuprofen 400mg", "Diclofenac Gel", "ORS Sachets"],
+            "Brand Examples": ["Crocin, Calpol", "Brufen, Combiflam", "Volini, Voveran", "Electral, Enerzal"],
+            "Use": ["Fever, mild pain", "Pain, inflammation, fever", "Muscle/joint pain (topical)", "Dehydration from fever/sweat"],
+            "Notes": ["Safest first-line; max 4g/day", "Avoid on empty stomach", "Do not apply on broken skin", "Essential in Pune summers"],
+        })
+        st.dataframe(df1, use_container_width=True, hide_index=True)
+
+    with st.expander("**Digestive Health**"):
+        st.markdown("Waterborne illnesses and food contamination are common in Pune, especially during monsoon.")
+        df2 = pd.DataFrame({
+            "Medicine": ["ORS Sachets", "Zinc 20mg tablets", "Metronidazole 400mg", "Domperidone 10mg", "Antacid", "Loperamide 2mg"],
+            "Brand Examples": ["Electral, Glucose-D", "Zincovit, Zinconia", "Flagyl, Metrogyl", "Domstal, Vomistop", "Digene, Gelusil, Eno", "Imodium, Eldoper"],
+            "Use": ["Diarrhea, vomiting dehydration", "Diarrhea (children)", "Amoebic infections, giardia", "Nausea, vomiting", "Acidity, heartburn, gas", "Acute diarrhea"],
+            "Notes": ["Mix with boiled/filtered water only", "Give with ORS for 14 days", "Rx only; consult doctor first", "Not for children under 12", "Keep both liquid & tablet", "Do not use if fever/blood in stool"],
+        })
+        st.dataframe(df2, use_container_width=True, hide_index=True)
+
+    with st.expander("**Allergies & Respiratory**"):
+        st.markdown("Pune has significant air quality issues and seasonal pollen counts. Respiratory medicines are essential.")
+        df3 = pd.DataFrame({
+            "Medicine": ["Cetirizine 10mg", "Loratadine 10mg", "Montelukast 10mg", "Salbutamol Inhaler", "Saline nasal spray", "Steam Inhaler device"],
+            "Brand Examples": ["Cetrizine, Alerid", "Lorfast, Clarityn", "Montair, Singulair", "Asthalin, Ventolin", "Nasoclear, Otrivin", "Any pharmacy brand"],
+            "Use": ["Allergic rhinitis, urticaria", "Allergies, hay fever", "Asthma, allergic rhinitis", "Asthma/bronchospasm", "Nasal congestion, dust", "Congestion, sinus relief"],
+            "Notes": ["Non-drowsy; once daily", "Alternative to cetirizine", "Rx; evening dose preferred", "If asthmatic in household", "Safe for daily use; non-addictive", "Useful during pollution season"],
+        })
+        st.dataframe(df3, use_container_width=True, hide_index=True)
+
+    with st.expander("**Cold, Cough & Sore Throat**"):
+        df4 = pd.DataFrame({
+            "Medicine": ["Ambroxol/Bromhexine", "Dextromethorphan", "Betadine Gargle", "Strepsils/Septolin", "Nasal Decongestant"],
+            "Brand Examples": ["Ambrodil, Mucinac", "Benadryl, Honitus", "Betadine, Hexidine", "Strepsils, Vicks", "Nasivion, Sinarest"],
+            "Use": ["Productive cough, mucus", "Dry cough", "Sore throat, oral hygiene", "Throat lozenges", "Blocked nose"],
+            "Notes": ["Expectorant; take with fluids", "Do not combine with expectorants", "Dilute before use", "Soothing; not a cure", "Use max 3 days to avoid rebound"],
+        })
+        st.dataframe(df4, use_container_width=True, hide_index=True)
+
+    with st.expander("**Skin & Wound Care**"):
+        st.markdown("Pune's humidity during monsoon creates ideal conditions for fungal skin infections.")
+        df5 = pd.DataFrame({
+            "Medicine": ["Clotrimazole 1% cream", "Betamethasone cream", "Mupirocin 2% ointment", "Calamine lotion", "Hydrogen Peroxide 3%", "Povidone Iodine"],
+            "Brand Examples": ["Candid, Canesten", "Betnovate, Dermovate", "Bactroban, Mupicin", "Lacto Calamine, Ahaglow", "Generic", "Betadine ointment"],
+            "Use": ["Fungal infections, ringworm", "Eczema, insect bites, rashes", "Minor infected wounds", "Heat rash, sunburn, prickly heat", "Wound cleaning", "Cuts, scrapes disinfection"],
+            "Notes": ["Apply twice daily 2–4 weeks", "Short-term use only; Rx", "Antibiotic; small wounds only", "Very useful in Pune summers", "Dilute; not for deep wounds", "Apply after cleaning wound"],
+        })
+        st.dataframe(df5, use_container_width=True, hide_index=True)
+
+    with st.expander("**Eye & Ear Care**"):
+        df6 = pd.DataFrame({
+            "Medicine": ["Sodium Chloride Eye Drops", "Moxifloxacin Eye Drops", "Otrivin Ear Drops"],
+            "Brand Examples": ["Refresh Tears, Systane", "Vigamox, Moxicip", "Waxsol, Ear drops"],
+            "Use": ["Dry eyes, dust irritation", "Bacterial conjunctivitis", "Ear wax, ear blockage"],
+            "Notes": ["Safe for daily use", "Rx; prescription needed", "Do not use if eardrum perforated"],
+        })
+        st.dataframe(df6, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 2. Monsoon & Tropical Disease Preparedness")
+
+    st.warning("**Important:** Dengue, malaria, typhoid, and leptospirosis are endemic to Pune. Seek medical care immediately for high fever (>101°F), chills, severe body ache, or rash. Do NOT self-medicate with antibiotics.")
+
+    with st.expander("**Dengue & Malaria First-Aid Supplies**"):
+        st.markdown("""
+        - **Paracetamol (NOT ibuprofen/aspirin)** for dengue fever — NSAIDs increase bleeding risk
+        - **ORS sachets** — fluid replacement during high fever
+        - **Rapid Test Kits** (NS1 Antigen for dengue, RDT for malaria) — available at pharmacies
+        - **Thermometer** — digital preferred; monitor fever trend
+        - **Mosquito repellent cream** — DEET-based (Odomos) for skin; use indoors during monsoon
+        - **Mosquito net** — impregnated with permethrin if possible
+        """)
+
+    with st.expander("**Water Safety**"):
+        st.markdown("""
+        - **Water purification tablets** (Halazone, Aquatabs) — for travel or power cuts when boiling not possible
+        - **ORS sachets x10** — rehydration after waterborne illness
+        - **Oral Zinc tablets** — reduce duration of traveller's diarrhoea
+        - **Probiotic sachets** (Sporlac, Bifilac) — restore gut flora after antibiotic courses
+        """)
+
+    st.markdown("---")
+    st.markdown("### 3. First Aid Equipment")
+
+    equip_df = pd.DataFrame({
+        "Item": ["Digital Thermometer", "Blood Pressure Monitor", "Pulse Oximeter", "Bandage rolls (3\", 4\")", "Sterile gauze pads", "Adhesive bandages", "Micropore / Medical tape", "Surgical gloves (latex-free)", "Scissors (blunt tip)", "Tweezers", "Cold pack (instant)", "Triangular bandage / Sling", "Torch/flashlight", "First Aid Manual"],
+        "Quantity": ["1", "1", "1", "4 each", "10–15", "1 box", "2 rolls", "10 pairs", "1 pair", "1", "2", "2", "1", "1"],
+        "Purpose": ["Fever monitoring (ear or forehead)", "Essential for hypertension", "Monitor oxygen — crucial post-COVID", "Wound wrapping, sprains", "Wound dressing", "Minor cuts and scrapes", "Securing dressings", "Wound care, hygiene", "Cutting bandages/tape", "Splinter/thorn removal", "Swelling, sprains, bites", "Arm slings, immobilisation", "Examining wounds in low light", "Reference (download on phone too)"],
+    })
+    st.dataframe(equip_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 4. Storage & Maintenance")
+
+    with st.expander("**Ideal Storage Conditions in Pune**"):
+        st.markdown("""
+        - Store in a **cool, dry place** away from humidity — avoid bathrooms or kitchens (steam/moisture degrades medicines)
+        - **Temperature:** Below 25°C when possible — use a small insulated box during summer (March–June)
+        - Keep away from **direct sunlight** — a cupboard shelf or drawer is ideal
+        - Store **out of reach of children** — use a lockable box if children are present
+        - Keep medicines in **original packaging** with leaflets intact
+        """)
+
+    with st.expander("**Maintenance Schedule**"):
+        maint_df = pd.DataFrame({
+            "Frequency": ["Monthly", "Quarterly", "Before Monsoon (May)", "Before Summer (Feb)", "Annually"],
+            "Task": ["Check for expired medicines and replace", "Review kit completeness; replenish used items", "Restock ORS, antifungals, anti-diarrheals, mosquito repellents", "Restock ORS, calamine lotion, electrolytes, eye drops", "Replace items within 3 months of expiry; update emergency numbers"],
+        })
+        st.dataframe(maint_df, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+    st.markdown("### 5. Emergency Contacts — Pune")
+
+    emer_df = pd.DataFrame({
+        "Service": ["National Emergency", "Ambulance (State)", "Poison Control India", "Apollo Hospitals Pune", "Ruby Hall Clinic", "KEM Hospital Pune", "Jehangir Hospital", "Pune Municipal Helpline"],
+        "Contact": ["112", "102", "1800-116-117", "020-66146060", "020-66455100", "020-26128000", "020-66819999", "1800-233-0101"],
+        "Notes": ["Police, fire, ambulance", "Free government ambulance", "24x7 toll-free helpline", "Baner Road", "Sassoon Road", "Government; Rasta Peth", "Sassoon Road", "PMC health services"],
+    })
+    st.dataframe(emer_df, use_container_width=True, hide_index=True)
+
+    st.info("**Pro Tip:** Save emergency contacts in your mobile under 'ICE' (In Case of Emergency). Add your family doctor, nearest hospital, and Pune Municipal ambulance to quick-dial.")
+
+    st.markdown("---")
+    st.caption("*This guide is for general informational purposes only. It does not replace professional medical advice. Prescription medicines (Rx) must only be taken under medical supervision. In case of medical emergency, call 112 immediately. Prepared for residents of Pune, Maharashtra. Update this kit regularly. Stay safe!*")
 
 # ==================== VITALS & MONITORING ====================
 elif page == "🩺 Vitals & Monitoring":
